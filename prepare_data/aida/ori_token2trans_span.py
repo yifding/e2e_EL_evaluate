@@ -13,6 +13,20 @@ UNKNOWN_ENTITY = 'NIL'
 UNKNOWN_WIKI_ID = '0000'
 
 
+def doc_name_rank(s):
+    if 'testa' in s:
+        splits = s.split('testa')
+        return int(splits[0])
+    elif 'testb' in s:
+        splits = s.split('testb')
+        return int(splits[0])
+    else:
+        assert '_' in s
+        splits = s.split('_')
+        assert len(splits) == 2
+        return int(splits[0])
+
+
 def read_aida(aida_train_file="aida_train.txt"):
     text = ""
     redict = defaultdict(list)
@@ -130,7 +144,7 @@ def write_xml(dataset, xml_file, redict):
     with open(xml_file, 'w') as writer:
         writer.write('<?xml version="1.0" encoding="UTF-8" standalone="no"?>' + '\n')
         writer.write('<' + dataset + '.entityAnnotation>' + '\n')
-        for document in redict:
+        for document in sorted(redict.keys(), key=doc_name_rank):
             tmps = redict[document]
             document = document.replace(' ', '_').replace('&', '&amp;')
 
