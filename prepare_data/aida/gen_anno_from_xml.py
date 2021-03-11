@@ -38,6 +38,7 @@ def gen_anno_from_xml(prefix, dataset):
             end = line.find(doc_str_end)
             cur_doc_name = line[start + len(doc_str_start): end]
             cur_doc_name = cur_doc_name.replace('&amp;', '&')
+            assert cur_doc_name in doc_name2txt
 
         else:
             if '<annotation>' in line:
@@ -90,16 +91,13 @@ def gen_anno_from_xml(prefix, dataset):
                     }
 
                 if cur_ent_title != 'NIL' and cur_ent_title != '':
-                    num_ner_anno += 1
-                else:
                     num_el_anno += 1
+                else:
+                    num_ner_anno += 1
 
                 doc_name2anno[cur_doc_name].append(ele)
         line = reader.readline()
 
     print('num_ner_anno', num_ner_anno, 'num_el_anno', num_el_anno)
-
-    for cur_doc_name in doc_name2anno:
-        assert cur_doc_name in doc_name2txt
 
     return doc_name2txt, doc_name2anno

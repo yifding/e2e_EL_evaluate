@@ -1,0 +1,11 @@
+input directory:  /scratch365/yding4/EL_resource/data/raw/AIDA-CONLL/ output dir:  /scratch365/yding4/e2e_EL_evaluate/data/processed/AIDA-CONLL/ori2xml
+CHECK the correctness of transforming dataset:  aida_train
+num_ner:  4855 num_el:  18541
+ready to write: dataset aida_train path /scratch365/yding4/e2e_EL_evaluate/data/processed/AIDA-CONLL/ori2xml/aida_train/aida_train.xml
+CHECK the correctness of transforming dataset:  aida_testa
+num_ner:  1126 num_el:  4791
+CHECK the correctness of transforming dataset:  aida_testb
+num_ner:  1131 num_el:  4485
+ready to write: dataset aida_testa path /scratch365/yding4/e2e_EL_evaluate/data/processed/AIDA-CONLL/ori2xml/aida_testa/aida_testa.xml
+ready to write: dataset aida_testb path /scratch365/yding4/e2e_EL_evaluate/data/processed/AIDA-CONLL/ori2xml/aida_testb/aida_testb.xml
+
