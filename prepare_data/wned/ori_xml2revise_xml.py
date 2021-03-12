@@ -3,13 +3,9 @@ import argparse
 from urllib.parse import quote
 from collections import defaultdict
 
-import stanza
 from tqdm import tqdm
 
 from gen_anno_from_ori_xml import gen_anno_from_xml
-
-
-TOKENIZER = stanza.Pipeline(lang='en', processors='tokenize')
 
 
 class Token(object):

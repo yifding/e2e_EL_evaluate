@@ -105,12 +105,13 @@ def gen_anno_from_xml(prefix, dataset):
                     ele['start'] = offset
                     ele['end'] = offset + length
 
-                if cur_ent_title != 'NIL' and cur_ent_title != '':
-                    num_el_anno += 1
-                else:
-                    num_ner_anno += 1
-
-                doc_name2anno[cur_doc_name].append(ele)
+                # consider repeat annotations in wikipedia
+                if ele not in doc_name2anno[cur_doc_name]:
+                    doc_name2anno[cur_doc_name].append(ele)
+                    if cur_ent_title != 'NIL' and cur_ent_title != '':
+                        num_el_anno += 1
+                    else:
+                        num_ner_anno += 1
         line = reader.readline()
 
     print(
