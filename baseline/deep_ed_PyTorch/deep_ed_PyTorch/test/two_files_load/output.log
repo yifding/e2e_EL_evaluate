@@ -1,0 +1,143 @@
+['file1-line1\n', 'file1-line2\n']
+Training file is done. Num passes =  1 . Reopening.
+['file1-line3', 'file1-line1\n']
+['file1-line2\n', 'file1-line3']
+Training file is done. Num passes =  2 . Reopening.
+['file1-line1\n', 'file1-line2\n']
+Training file is done. Num passes =  3 . Reopening.
+['file1-line3', 'file1-line1\n']
+['file1-line2\n', 'file1-line3']
+Training file is done. Num passes =  4 . Reopening.
+['file1-line1\n', 'file1-line2\n']
+Training file is done. Num passes =  5 . Reopening.
+['file1-line3', 'file1-line1\n']
+['file1-line2\n', 'file1-line3']
+Training file is done. Num passes =  6 . Reopening.
+['file1-line1\n', 'file1-line2\n']
+Training file is done. Num passes =  7 . Reopening.
+['file1-line3', 'file1-line1\n']
+['file1-line2\n', 'file1-line3']
+Training file is done. Num passes =  8 . Reopening.
+['file1-line1\n', 'file1-line2\n']
+Training file is done. Num passes =  9 . Reopening.
+['file1-line3', 'file1-line1\n']
+['file1-line2\n', 'file1-line3']
+
+
+Start training on Wiki Hyperlinks
+
+
+Training file is done. Num passes =  10 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  11 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  12 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  13 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  14 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  15 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  16 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  17 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  18 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  19 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  20 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  21 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  22 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  23 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  24 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  25 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  26 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  27 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  28 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  29 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  30 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  31 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  32 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  33 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  34 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  35 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  36 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  37 . Reopening.
+['file2-line1\n', 'file2-line2\n']
+['file2-line3\n', 'file2-line4\n']
+['file2-line5\n', 'file2-line6']
+Training file is done. Num passes =  38 . Reopening.
+['file2-line1\n', 'file2-line2\n']

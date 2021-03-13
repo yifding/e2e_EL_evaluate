@@ -1,0 +1,101 @@
+==> Loading disambiguation index
+    Done loading disambiguation index
+==> Loading redirects index
+    Done loading redirects index
+==> Loading entity wikiid - name map
+  ---> torch file NOT found. Loading from disk (slower). Out f = /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/basic_data/wiki_name_id_map.txt
+    Still loading entity wikiid - name map ...
+    Done loading entity name - wikiid. Size thid index =  4306070
+    Done loading entity name - wikiid. Size num2ent index =  4306070
+====> Computing Wikipedia p_e_m
+{
+    "Processed lines": 5000000,
+    "Parsing errs": 156,
+    "List ent errs": 49307,
+    "diez errs": 68219,
+    "disambig errs": 160439,
+    "Num valid hyperlinks": 8821699
+}
+{
+    "Processed lines": 10000000,
+    "Parsing errs": 316,
+    "List ent errs": 93665,
+    "diez errs": 130314,
+    "disambig errs": 352167,
+    "Num valid hyperlinks": 16339376
+}
+{
+    "Processed lines": 15000000,
+    "Parsing errs": 477,
+    "List ent errs": 134049,
+    "diez errs": 181999,
+    "disambig errs": 553198,
+    "Num valid hyperlinks": 23108851
+}
+{
+    "Processed lines": 20000000,
+    "Parsing errs": 634,
+    "List ent errs": 171816,
+    "diez errs": 226242,
+    "disambig errs": 752238,
+    "Num valid hyperlinks": 29272167
+}
+{
+    "Processed lines": 25000000,
+    "Parsing errs": 788,
+    "List ent errs": 205744,
+    "diez errs": 268120,
+    "disambig errs": 948816,
+    "Num valid hyperlinks": 35070291
+}
+{
+    "Processed lines": 30000000,
+    "Parsing errs": 939,
+    "List ent errs": 234125,
+    "diez errs": 301264,
+    "disambig errs": 1124110,
+    "Num valid hyperlinks": 40554057
+}
+{
+    "Processed lines": 35000000,
+    "Parsing errs": 1058,
+    "List ent errs": 260366,
+    "diez errs": 337698,
+    "disambig errs": 1302606,
+    "Num valid hyperlinks": 45725849
+}
+{
+    "Processed lines": 40000000,
+    "Parsing errs": 1172,
+    "List ent errs": 285988,
+    "diez errs": 373848,
+    "disambig errs": 1471330,
+    "Num valid hyperlinks": 50849869
+}
+{
+    "Processed lines": 45000000,
+    "Parsing errs": 1340,
+    "List ent errs": 311158,
+    "diez errs": 411869,
+    "disambig errs": 1646373,
+    "Num valid hyperlinks": 55880183
+}
+{
+    "Processed lines": 50000000,
+    "Parsing errs": 1482,
+    "List ent errs": 337453,
+    "diez errs": 450139,
+    "disambig errs": 1844347,
+    "Num valid hyperlinks": 60856464
+}
+{
+    "Processed lines": 55000000,
+    "Parsing errs": 1638,
+    "List ent errs": 363024,
+    "diez errs": 488187,
+    "disambig errs": 2007320,
+    "Num valid hyperlinks": 65471738
+}
+  -------> Done computing Wikipedia p(e|m). Num valid hyperlinks = 68132964
+====> Now sorting and writing p_m_e_from_wiki..
+    Done sorting and writing.

@@ -1,0 +1,182 @@
+Namespace(datasets=['ace2004', 'aquaint', 'clueweb', 'msnbc', 'wikipedia'], root_data_dir='/scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/')
+==> Loading disambiguation index
+    Done loading disambiguation index
+==> Loading redirects index
+    Done loading redirects index
+==> Loading entity wikiid - name map
+  ---> from torch file: /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/generated/ent_name_id_map.pt
+    Done loading entity name - wikiid. Size thid index =  4306070
+    Done loading entity name - wikiid. Size num2ent index =  4306070
+====> load from pt file: /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/generated/ent_p_e_m_index.pt
+    Done loading index
+
+Generating test data from ace2004 set 
+input main path:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/basic_data/test_datasets/wned-datasets/ace2004
+anno_file:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/basic_data/test_datasets/wned-datasets/ace2004/ace2004.xml
+out_file:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/generated/test_train_data/wned-ace2004.csv
+Entity Lujaizui not found.
+unknown entity anno:  Lujaizui
+Done ace2004.
+num_nonexistent_ent_id = 1; num_correct_ents = 256
+
+Generating test data from aquaint set 
+input main path:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/basic_data/test_datasets/wned-datasets/aquaint
+anno_file:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/basic_data/test_datasets/wned-datasets/aquaint/aquaint.xml
+out_file:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/generated/test_train_data/wned-aquaint.csv
+Entity List of radio stations in Nicaragua not found.
+unknown entity anno:  List of radio stations in Nicaragua
+Entity List of newspapers in India not found.
+unknown entity anno:  List of newspapers in India
+Entity List of fatal bear attacks in North America by decade not found.
+unknown entity anno:  List of fatal bear attacks in North America by decade
+Entity Federated State not found.
+unknown entity anno:  Federated State
+Entity List of national legal systems not found.
+unknown entity anno:  List of national legal systems
+Entity Tender not found.
+unknown entity anno:  Tender
+Entity David Richardson not found.
+unknown entity anno:  David Richardson
+Done aquaint.
+num_nonexistent_ent_id = 7; num_correct_ents = 720
+
+Generating test data from clueweb set 
+input main path:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/basic_data/test_datasets/wned-datasets/clueweb
+anno_file:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/basic_data/test_datasets/wned-datasets/clueweb/clueweb.xml
+out_file:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/generated/test_train_data/wned-clueweb.csv
+Entity Mia Jones (Degrassi: The Next Generation) not found.
+unknown entity anno:  Mia Jones (Degrassi: The Next Generation)
+Entity World not found.
+unknown entity anno:  World
+Entity The Lord of the Rings: The Fellowship of the Ring not found.
+unknown entity anno:  The Lord of the Rings: The Fellowship of the Ring
+Entity Anthrax (disambiguation) not found.
+unknown entity anno:  Anthrax (band)
+Entity Anthrax (disambiguation) not found.
+unknown entity anno:  Anthrax (band)
+Entity World not found.
+unknown entity anno:  World
+Entity Cosmos: A Personal Voyage not found.
+unknown entity anno:  Cosmos: A Personal Voyage
+Entity Jumeirah Village not found.
+unknown entity anno:  Jumeirah Village
+Done clueweb.
+num_nonexistent_ent_id = 8; num_correct_ents = 11146
+
+Generating test data from msnbc set 
+input main path:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/basic_data/test_datasets/wned-datasets/msnbc
+anno_file:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/basic_data/test_datasets/wned-datasets/msnbc/msnbc.xml
+out_file:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/generated/test_train_data/wned-msnbc.csv
+Done msnbc.
+num_nonexistent_ent_id = 0; num_correct_ents = 656
+
+Generating test data from wikipedia set 
+input main path:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/basic_data/test_datasets/wned-datasets/wikipedia
+anno_file:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/basic_data/test_datasets/wned-datasets/wikipedia/wikipedia.xml
+out_file:  /scratch365/yding4/EL_resource/data/deep_ed_PyTorch_data/generated/test_train_data/wned-wikipedia.csv
+Entity Christina (given name) not found.
+unknown entity anno:  Christina (given name)
+Entity Christina (given name) not found.
+unknown entity anno:  Christina (given name)
+Entity Kirsten not found.
+unknown entity anno:  Kirsten
+Entity Leslie Townsend not found.
+unknown entity anno:  Leslie Townsend
+Entity Leslie Townsend not found.
+unknown entity anno:  Leslie Townsend
+Entity U.S. Route 40 not found.
+unknown entity anno:  U.S. Route 40
+Entity Ashland, Louisiana not found.
+unknown entity anno:  Ashland, Louisiana
+Entity List of Farm to Market Roads in Texas (1–99) not found.
+unknown entity anno:  Farm to Market Road 16
+Entity List of Farm to Market Roads in Texas (1–99) not found.
+unknown entity anno:  Farm to Market Road 17
+Entity List of Farm to Market Roads in Texas (1–99) not found.
+unknown entity anno:  Farm to Market Road 17
+Entity List of state highways in Colorado not found.
+unknown entity anno:  State highways in Colorado
+Entity U.S. Route 40 not found.
+unknown entity anno:  U.S. Route 40
+Entity U.S. Route 40 not found.
+unknown entity anno:  U.S. Route 40
+Entity Thomas Gordon not found.
+unknown entity anno:  Thomas Gordon
+Entity Robert Crowley not found.
+unknown entity anno:  Robert Crowley
+Entity Tiger (comics) not found.
+unknown entity anno:  Tiger (comics)
+Entity Tiger (comics) not found.
+unknown entity anno:  Tiger (comics)
+Entity Underdog not found.
+unknown entity anno:  Underdogs
+Entity John Tyrrell not found.
+unknown entity anno:  John Tyrrell
+Entity List of minor DC Comics characters not found.
+unknown entity anno:  Sam Lane (comics)
+Entity Ryan Campbell not found.
+unknown entity anno:  Ryan Campbell
+Done wikipedia.
+num_nonexistent_ent_id = 21; num_correct_ents = 6800
+Entity Craig Brown not found.
+Entity International cricketers of South African origin not found.
+Entity Jonathan Stark not found.
+Entity Carlos Costa not found.
+Entity Antonio Esposito not found.
+Entity Independence Day (disambiguation) not found.
+Entity Independence Day (disambiguation) not found.
+Entity Erik Hanson not found.
+Entity Erik Hanson not found.
+Entity Iván García not found.
+Entity Camelot, Chesapeake, Virginia not found.
+Entity Jonathan Stark not found.
+Entity Gordon Parsons not found.
+Entity Xhosa not found.
+Entity Xhosa not found.
+Entity Jamaat-e-Islami not found.
+Entity Ford Escort not found.
+Entity Ford Escort not found.
+Entity Franz Konrad not found.
+Entity Ford Escort not found.
+Entity Carlos Costa not found.
+Entity Craig Evans not found.
+Entity Preston not found.
+Entity Superman (disambiguation) not found.
+Entity Superman (disambiguation) not found.
+Entity Jonathan Stark not found.
+Entity Ashta not found.
+Entity John Smiley not found.
+Entity Derek Ryan not found.
+Entity Michael Andersson not found.
+Entity Michael Andersson not found.
+Entity Oksana Grishina not found.
+Entity Derek Ryan not found.
+Entity Bandundu not found.
+Entity Čelopek not found.
+    Done AIDA.
+num_nme = 4855; num_nonexistent_ent_title = 12103
+num_nonexistent_ent_id = 0; num_nonexistent_both = 236
+num_correct_ents = 6202; num_total_ents = 18541
+Entity Derek Ryan not found.
+Entity Iván García not found.
+Entity Akhbar not found.
+Entity Michael Andersson not found.
+Entity Michael Andersson not found.
+Entity Oksana Grishina not found.
+Entity Craig Brown not found.
+Entity John Collins not found.
+Entity International Boxing Association not found.
+Entity Ramón Ramírez not found.
+Done validation testA : 
+num_nme = 1126; num_nonexistent_ent_title = 3189
+num_nonexistent_ent_id = 0; num_nonexistent_both = 35
+num_correct_ents = 1567; num_total_ents = 4791
+Entity World Open not found.
+Entity Douglas Young not found.
+Entity Douglas Young not found.
+Entity James Love not found.
+Entity Noel Whelan not found.
+    Done AIDA.
+num_nme = 2257; num_nonexistent_ent_title = 6255
+num_nonexistent_ent_id = 0; num_nonexistent_both = 72
+num_correct_ents = 2949; num_total_ents = 9276
