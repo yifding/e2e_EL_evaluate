@@ -86,9 +86,9 @@ class REWTR(object):
 
             # print('after small dataset: ', len(rltd_all_ent_wikiids))
             # -- 2) From all ED datasets:
-            files = ['aida_train.csv', 'aida_testA.csv', 'aida_testB.csv',
-                     'wned-aquaint.csv', 'wned-msnbc.csv', 'wned-ace2004.csv',
-                     'wned-clueweb.csv', 'wned-wikipedia.csv']
+            files = ['aida_train.csv', 'aida_testa.csv', 'aida_testb.csv',
+                     'aquaint.csv', 'msnbc.csv', 'ace2004.csv',
+                     'clueweb.csv', 'wikipedia.csv']
 
             for file in files:
                 file_file = os.path.join(args.root_data_dir, 'generated/test_train_data/' + file)
