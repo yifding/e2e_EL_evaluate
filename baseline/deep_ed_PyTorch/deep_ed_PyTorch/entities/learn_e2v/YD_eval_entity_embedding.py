@@ -35,8 +35,6 @@ def main():
         allow_abbrev=False,
     )
 
-
-
     parser.add_argument(
         '--dir',
         type=str,
