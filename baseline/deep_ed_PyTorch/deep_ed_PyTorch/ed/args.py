@@ -276,6 +276,12 @@ def arg_parse():
         help='model for evaluation',
     )
 
+    parser.add_argument(
+        '--train_file',
+        type=str,
+        default='aida_train.csv',
+        help='training csv file',
+    )
 
     args = parser.parse_args()
 

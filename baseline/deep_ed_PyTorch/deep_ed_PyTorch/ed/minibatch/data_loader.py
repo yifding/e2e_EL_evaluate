@@ -19,7 +19,8 @@ class DataLoader(object):
         else:
             self.build_minibatch = args.build_minibatch =  BuildMinibatch(args)
 
-        self.train_file = os.path.join(args.root_data_dir, 'generated/test_train_data/aida_train.csv')
+        train_file = args.train_file if hasattr(args, 'train_file') else 'aida_train.csv'
+        self.train_file = os.path.join(args.root_data_dir, 'generated/test_train_data/' + train_file)
         self.reader = open(self.train_file, 'r')
 
         # **YD** args.store_train_data has been implemented, RAM by default
@@ -218,6 +219,13 @@ if __name__ == '__main__':
         choices=['RLTD', 'ALL'],
         help='Set of entities for which we train embeddings: '
              ' RLTD (restricted set) | ALL (all Wiki entities, too big to fit on a single GPU)',
+    )
+
+    parser.add_argument(
+        '--train_file',
+        type=str,
+        default='aida_train.csv',
+        help='training csv file',
     )
 
     parser.add_argument(
