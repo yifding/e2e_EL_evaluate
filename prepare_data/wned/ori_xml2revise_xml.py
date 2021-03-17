@@ -99,6 +99,8 @@ def process_wned(args):
             tmp = sorted(tmp, key=lambda x: x['start'])
             doc_name2anno[doc_name] = list(tmp)
 
+        # **YD** fix a bug missing the txt without annotation
+        for doc_name in doc_name2txt:
             txt_file = os.path.join(txt_dir, doc_name)
             with open(txt_file, 'w') as writer:
                 writer.write(doc_name2txt[doc_name])
