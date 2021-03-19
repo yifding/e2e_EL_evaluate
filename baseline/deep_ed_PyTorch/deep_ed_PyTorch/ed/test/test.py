@@ -451,20 +451,3 @@ class Test(object):
                 if parts[6] != 'EMPTYCAND':
                     num_predicted += 1
         return num_predicted
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
