@@ -4,7 +4,7 @@
 #$-M yding4@nd.edu
 #$-q gpu # specify the queue
 #$-l gpu_card=4
-#$-N train_ent_embedding
+#$-N eval_local_model
 
 export PATH=/afs/crc.nd.edu/user/y/yding4/.conda/envs/e2e_EL_evaluate/bin:$PATH
 export LD_LIBRARY_PATH=/afs/crc.nd.edu/user/y/yding4/.conda/envs/e2e_EL_evaluate/lib:$LD_LIBRARY_PATH
