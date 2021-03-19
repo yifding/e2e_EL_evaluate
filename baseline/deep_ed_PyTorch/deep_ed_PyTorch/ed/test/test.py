@@ -376,7 +376,8 @@ class Test(object):
 
         print(
             '==> ' + banner + ' ' + banner + ' ; EPOCH = ' + str(epoch) +
-            ': Micro recall = ' + '{0:.2f}'.format(recall * 100.0) + '%' +
+            ': Micro precision = ' + '{0:.2f}'.format(precision) + '%' +
+            ': Micro recall = ' + '{0:.2f}'.format(recall) + '%' +
             ' ; Micro F1 = ' + f1_str
         )
 
