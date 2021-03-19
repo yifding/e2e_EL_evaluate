@@ -86,12 +86,15 @@ class REWTR(object):
 
             # print('after small dataset: ', len(rltd_all_ent_wikiids))
             # -- 2) From all ED datasets:
+            '''
             files = ['aida_train.csv', 'aida_testa.csv', 'aida_testb.csv',
                      'aquaint.csv', 'msnbc.csv', 'ace2004.csv',
                      'clueweb.csv', 'wikipedia.csv']
+            '''
+            files = args.datasets
 
             for file in files:
-                file_file = os.path.join(args.root_data_dir, 'generated/test_train_data/' + file)
+                file_file = os.path.join(args.root_data_dir, 'generated/test_train_data/' + file + '.csv')
                 with open(file_file, 'r') as reader:
                     for line in reader:
                         line = line.rstrip('\t\n')
