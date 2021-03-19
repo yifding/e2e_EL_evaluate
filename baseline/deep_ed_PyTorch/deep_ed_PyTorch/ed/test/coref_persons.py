@@ -118,7 +118,7 @@ class CorefPersons(object):
                     if m != mention and ((' ' + stupid_pattern) in m or (stupid_pattern + ' ') in m) and \
                        self.mention_refers_to_person(m, mention_ent_cand):
 
-                        if banner == 'aida_testB':
+                        if banner == 'aida_testb':
                             print('coref mention = ' + m +
                                   ' replaces original mention = ' + mention +
                                   ' ; DOC = ' + doc_id)

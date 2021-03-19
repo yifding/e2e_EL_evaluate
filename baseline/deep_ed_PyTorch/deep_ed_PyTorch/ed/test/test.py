@@ -370,7 +370,7 @@ class Test(object):
         f1_str = "{0:.2f}".format(f1) + '%'
 
         '''
-        if banner == 'aida-A' and f1 >= 90.20 then
+        if banner == 'aida_testa' and f1 >= 90.20 then
         f1_str = green(string.format("%.2f", f1) .. '%')
         '''
 
@@ -384,7 +384,7 @@ class Test(object):
 
         '''
         -- Lower learning rate if we got close to minimum
-        if banner == 'aida-A' and f1 >= 90 then
+        if banner == 'aida_testa' and f1 >= 90 then
         opt.lr = 1e-5
         end
         '''
@@ -393,7 +393,7 @@ class Test(object):
         # -- And we start saving (good quality) models from now on.
 
         '''
-        if banner == 'aida-A' then
+        if banner == 'aida_testa' then
             if f1 >= 80.0 then
               opt.save = true
             else

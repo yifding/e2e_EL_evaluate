@@ -258,8 +258,8 @@ def arg_parse():
     parser.add_argument(
         '--datasets',
         type=eval,
-        default="['aida_testA', "
-                "'aida_testB', "
+        default="['aida_testa', "
+                "'aida_testb', "
                 "'wned-msnbc', "
                 "'wned-aquaint', "
                 "'wned-ace2004', "

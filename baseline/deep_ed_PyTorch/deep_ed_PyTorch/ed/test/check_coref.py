@@ -7,7 +7,7 @@ from coref_persons import CorefPersons
 def test(args):
     coref_persons_cls = CorefPersons(args)
 
-    file = os.path.join(args.root_data_dir, 'generated/test_train_data/aida_testB.csv')
+    file = os.path.join(args.root_data_dir, 'generated/test_train_data/aida_testb.csv')
     all_doc_lines = dict()
 
     with open(file, 'r') as reader:
@@ -20,7 +20,7 @@ def test(args):
             all_doc_lines[doc_name].append(line)
 
     # -- Gather coreferent mentions to increase accuracy.
-    coref_persons_cls.build_coreference_dataset(all_doc_lines, 'aida_testB')
+    coref_persons_cls.build_coreference_dataset(all_doc_lines, 'aida_testb')
 
 
 if __name__ == '__main__':
