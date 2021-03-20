@@ -81,6 +81,11 @@ class Test(object):
 
         :return: None
         """
+
+        # **YD** ADD writing file of model prediction and empty (wrong) outputs.
+        model_output_s = ''
+        model_output_wrong_s = ''
+
         # -- Load dataset lines
         # **YD** "get_dataset_lines" has been implemented, return a dictionary of list
         dataset_lines = self.get_dataset_lines(banner)
@@ -113,6 +118,9 @@ class Test(object):
         # -- NN forward pass:
         model = self.args.model
         model.eval()
+
+        if self.args.type == 'cuda':
+            model.cpu()
 
         # go through each documents
         for doc_id, doc_lines in dataset_lines.items():
@@ -150,8 +158,7 @@ class Test(object):
             #     -- num_mentions, max_num_cand:
             #     final_local_scores = additional_local_submodels.model_final_local:forward(inputs):float()
 
-            if self.args.type == 'cuda':
-                model.cpu()
+
             preds, beta, entity_context_sim_scores = model(inputs)
             debug_softmax_word_weights = beta
             final_local_scores = entity_context_sim_scores
@@ -194,6 +201,9 @@ class Test(object):
                     # **YD** "get_ent_name_from_wikiid" has been implemented
                     ent_win_name = self.ent_name_id.get_ent_name_from_wikiid(ent_win)
                     ent_win_log_p_e_m = log_p_e_m[k][win_idx]
+
+                    # **YD** model output
+                    model_output_s += doc_id + '\t' + doc_lines[k].split('\t')[1] + '\t' + str(ent_win) + ',' + ent_win_name + '\n'
 
                     # **YD** "final_local_scores" has been implemented
                     ent_win_local = final_local_scores[k][win_idx]
@@ -275,6 +285,9 @@ class Test(object):
                                 str_words += w + '[' + '{:.3f}'.format(score) + ']; '
 
                     print(str_words)
+
+                else:
+                    model_output_wrong_s += doc_id + '\t' + doc_lines[k].split('\t')[1] + '\n'
                 # ----------------- Done printing scores and weights
 
                 # -- Count how many of the winning entities do not have a valid ent vector
@@ -348,6 +361,23 @@ class Test(object):
 
                 # -- disp progress
                 # xlua.progress(processed_mentions, dataset_num_mentions)
+
+        if hasattr(self.args, 'store_model_output') and self.args.store_model_output:
+            if self.args.model_type == 'local':
+                model_output_dir = os.path.join(self.args.root_data_dir, 'visualization/local')
+            else:
+                assert self.args.model_type == 'global'
+                model_output_dir = os.path.join(self.args.root_data_dir, 'visualization/global')
+
+            os.makedirs(model_output_dir, exist_ok=True)
+            model_output_file = os.path.join(model_output_dir, banner + '.csv')
+            model_output_wrong_file = os.path.join(model_output_dir, banner + '_wrong.csv')
+
+            with open(model_output_file, 'w') as writer:
+                writer.write(model_output_s)
+
+            with open(model_output_wrong_file, 'w') as writer:
+                writer.write(model_output_wrong_s)
 
         # -- done with this mini batch
 
@@ -425,6 +455,9 @@ class Test(object):
                 '%;  not_ours_not_pem = ' +
                 '{0:.2f}'.format(100.0 * not_ours_not_pem / dataset_num_mentions) + '%'
         )
+
+        if self.args.type == 'cuda':
+            model.cuda()
 
     def get_dataset_lines(self, banner):
         all_doc_lines = dict()

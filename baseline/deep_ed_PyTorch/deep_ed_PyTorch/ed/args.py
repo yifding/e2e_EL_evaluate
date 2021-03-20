@@ -276,11 +276,19 @@ def arg_parse():
         help='model for evaluation',
     )
 
+    # **YD** actual training file of the ED model
     parser.add_argument(
         '--train_file',
         type=str,
         default='aida_train.csv',
         help='training csv file',
+    )
+
+    # **YD** whether store the model prediction result.
+    parser.add_argument(
+        '--store_model_output',
+        help='training csv file',
+        action="store_true",
     )
 
     args = parser.parse_args()
