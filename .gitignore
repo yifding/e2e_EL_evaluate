@@ -41,3 +41,6 @@ RUN_FILES
 
 # deep_ed_PyTorch run_files
 baseline/deep_ed_PyTorch/run_files
+
+# end2end_neural_el data
+baseline/end2end_neural_el/data 
