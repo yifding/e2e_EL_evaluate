@@ -192,4 +192,10 @@ def gen_anno_from_xml(
         'num_change_length', num_change_length
     )
 
+    # **YD** post-processing: sort the annotation by start and end.
+    for doc_name in doc_name2anno:
+        tmp_anno = doc_name2anno[doc_name]
+        tmp_anno = sorted(tmp_anno, key=lambda x: (x['start'], x['end']))
+        doc_name2anno[doc_name] = tmp_anno
+
     return doc_name2txt, doc_name2anno
