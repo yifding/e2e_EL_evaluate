@@ -8,7 +8,7 @@ def gen_anno_from_xml(
         allow_mention_shift=False,
         allow_mention_without_entity=False,
         allow_repeat_annotation=False,
-    ):
+):
 
     """
     this function reads a standard xml EL annotation with its documents
@@ -44,10 +44,10 @@ def gen_anno_from_xml(
 
     :return:
     doc_name2txt, doc_name2anno:
-    doc_name2txt is a dictionary of string. Each doc_name corresponds to a documentation of a dataset.
-    doc_name2anno is a dictionary of list. Each doc_name corresponds to a documentation of a dataset.
-    each element(ele) in the list is a dictionary formed with four elements:
+    doc_name2txt: a dictionary of string. Each doc_name corresponds to a documentation of a dataset.
+    doc_name2anno: a dictionary of list. Each doc_name corresponds to a documentation of a dataset.
 
+    each element(ele) in the list is a dictionary formed with four elements:
     ele = {
             'start': offset,    # starting position of the mention in the doc_name txt.
             'end': offset + length, # endding position of the mention in the doc_name txt.
@@ -155,7 +155,11 @@ def gen_anno_from_xml(
                             offset = offset + 1
                             pos_mention = doc_txt[offset: offset + length]
                             if offset > ele['start'] + 100:
-                                print('pos_mention', doc_txt[anno['offset']: anno['offset'] + length], anno['mention_txt'])
+                                print(
+                                    'pos_mention',
+                                    doc_txt[anno['offset']: anno['offset'] + length],
+                                    anno['mention_txt'],
+                                )
                                 raise ValueError('huge error!')
                         ele['start'] = offset
                         ele['end'] = offset + length
