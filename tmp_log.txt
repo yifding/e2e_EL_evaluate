@@ -1,0 +1,2 @@
+REL and end2end_neural both set a server and feed txt to the server using a json to output results.
+The entities are evaluate by the names.
