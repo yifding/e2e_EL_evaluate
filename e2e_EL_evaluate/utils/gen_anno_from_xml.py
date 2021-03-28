@@ -28,7 +28,7 @@ def gen_anno_from_xml(
     :param prefix: the absolute path before the dataset directory.
 
     :param dataset: name of a dataset. It also forms the name of '.xml'.
-
+    
     :param allow_mention_shift: allow mismatch between "txt[offset: offset + length]" and "{annotated mention}".
     If the flag is set to True: it will uses the length of "{annotated mention}" as actual length. Search the mention
     from "offset" - 10 to "offset + 100" to find this mention.
@@ -43,6 +43,17 @@ def gen_anno_from_xml(
     If the flag is set to False: raise ERROR if a repeat annotation is found.
 
     :return:
+    doc_name2txt, doc_name2anno:
+    doc_name2txt is a dictionary of string. Each doc_name corresponds to a documentation of a dataset.
+    doc_name2anno is a dictionary of list. Each doc_name corresponds to a documentation of a dataset.
+    each element(ele) in the list is a dictionary formed with four elements:
+
+    ele = {
+            'start': offset,    # starting position of the mention in the doc_name txt.
+            'end': offset + length, # endding position of the mention in the doc_name txt.
+            'mention_txt': cur_mention, # annotated mention.
+            'entity_txt': cur_ent_title, # annotated entity. '' or 'NIL' represents empty entity annotation (NER).
+        }
     """
 
     raw_text_prefix = os.path.join(prefix, dataset + '/' + 'RawText')
