@@ -28,7 +28,7 @@ def gen_anno_from_xml(
     :param prefix: the absolute path before the dataset directory.
 
     :param dataset: name of a dataset. It also forms the name of '.xml'.
-    
+
     :param allow_mention_shift: allow mismatch between "txt[offset: offset + length]" and "{annotated mention}".
     If the flag is set to True: it will uses the length of "{annotated mention}" as actual length. Search the mention
     from "offset" - 10 to "offset + 100" to find this mention.
