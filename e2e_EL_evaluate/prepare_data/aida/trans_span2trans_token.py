@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
     parser.add_argument(
         "--datasets",
-        default="['aida_train', 'aida_testa', 'aida_testb']",
+        default="['aida_train','aida_testa','aida_testb']",
         type=eval,
     )
 

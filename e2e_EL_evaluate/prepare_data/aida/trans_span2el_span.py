@@ -2,6 +2,7 @@ import os
 import argparse
 
 from e2e_EL_evaluate.utils.write_xml import write_xml
+from e2e_EL_evaluate.utils.check_xml_anno import check_xml_anno
 from e2e_EL_evaluate.utils.gen_anno_from_xml import gen_anno_from_xml
 
 
@@ -12,6 +13,7 @@ def main(args):
 
     for dataset in args.datasets:
         doc_name2txt, doc_name2anno = gen_anno_from_xml(args.input_dir, dataset)
+        check_xml_anno(doc_name2txt, doc_name2anno)
         write_xml(args.output_dir, dataset, doc_name2txt, doc_name2anno)
 
 
@@ -31,7 +33,7 @@ if __name__ == '__main__':
 
     parser.add_argument(
         "--datasets",
-        default="['aida_train', 'aida_testa', 'aida_testb']",
+        default="['aida_train','aida_testa','aida_testb']",
         type=eval,
     )
 
