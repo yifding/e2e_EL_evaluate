@@ -27,18 +27,16 @@ def write_xml(prefix, dataset, doc_name2txt, doc_name2anno):
         }
     :return: None
     """
-
+    print('ready to write xml EL annotation:', 'dataset', dataset, 'path', prefix)
     dataset_prefix = os.path.join(prefix, dataset)
     os.makedirs(dataset_prefix, exist_ok=True)
 
-    xml_file = os.path.join(prefix, dataset + '/' + dataset + '.xml')
-    write_annotation(xml_file, doc_name2anno)
+    write_annotation(prefix, dataset, doc_name2anno)
     write_txt(prefix, dataset, doc_name2txt)
 
 
-def write_annotation(xml_file, doc_name2anno):
-    print('ready to write:', 'dataset', dataset, 'path', xml_file)
-
+def write_annotation(prefix, dataset, doc_name2anno):
+    xml_file = os.path.join(prefix, dataset + '/' + dataset + '.xml')
     with open(xml_file, 'w') as writer:
         writer.write('<?xml version="1.0" encoding="UTF-8" standalone="no"?>' + '\n')
         writer.write('<' + dataset + '.entityAnnotation>' + '\n')
