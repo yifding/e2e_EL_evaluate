@@ -4,7 +4,6 @@ from collections import defaultdict, deque
 
 from nltk.tokenize import sent_tokenize
 
-# from gen_anno_from_xml import gen_anno_from_xml
 from e2e_EL_evaluate.utils.gen_anno_from_xml import gen_anno_from_xml
 
 
