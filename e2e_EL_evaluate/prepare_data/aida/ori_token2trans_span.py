@@ -13,6 +13,7 @@ AIDA_TEST_FILE = "testa_testb_aggregate_original"
 def process_aida_train(args):
     aida_train_file = os.path.join(args.input_dir, AIDA_TRAIN_FILE)
     text_dict_train, redict_train = read_aida_conll(aida_train_file)
+    check_xml_anno(text_dict_train, redict_train)
 
     write_xml(args.output_dir, 'aida_train', text_dict_train, redict_train)
 
