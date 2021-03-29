@@ -100,7 +100,16 @@ def gen_anno_from_xml(
         else:
             if '<annotation>' in line:
                 line = reader.readline()
-                assert '<mention>' in line and '</mention>' in line
+
+                # **YD** bug here because mention may contain line changing symbols, aka. annotated mention cross more
+                # than one line.
+                # assert '<mention>' in line and '</mention>' in line
+
+                assert '<mention>' in line
+                new_line = line
+                while '</mention>' not in new_line:
+                    new_line = reader.readline()
+                    line += new_line
 
                 m_start = line.find('<mention>') + len('<mention>')
                 m_end = line.find('</mention>')
