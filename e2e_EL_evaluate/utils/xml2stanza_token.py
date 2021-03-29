@@ -1,4 +1,6 @@
 import os
+from collections import defaultdict
+
 import stanza
 from tqdm import tqdm
 
@@ -52,6 +54,7 @@ def xml2stanza_token(
     prefix,
     dataset,
     output_prefix,
+    allow_mention_without_entity=True,
 ):
     """
     This function inputs a 'xml EL annotation' directory with specified datatset, and outputs a stanza tokenized
@@ -64,7 +67,11 @@ def xml2stanza_token(
     :return: None
     """
     print('dataset', dataset, 'path', prefix, 'output_path', output_prefix)
-    doc_name2txt, doc_name2anno = gen_anno_from_xml(prefix, dataset)
+    doc_name2txt, doc_name2anno = gen_anno_from_xml(
+        prefix,
+        dataset,
+        allow_mention_without_entity=allow_mention_without_entity,
+    )
     check_xml_anno(doc_name2txt, doc_name2anno)
 
     num_split = 0

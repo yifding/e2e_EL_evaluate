@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from e2e_EL_evaluate.utils.check_xml_anno import check_xml_anno
 
 UNKNOWN_ENTITY = ''
