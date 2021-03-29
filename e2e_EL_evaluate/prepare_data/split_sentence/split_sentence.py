@@ -4,7 +4,8 @@ from collections import defaultdict, deque
 
 from nltk.tokenize import sent_tokenize
 
-from gen_anno_from_xml import gen_anno_from_xml
+# from gen_anno_from_xml import gen_anno_from_xml
+from e2e_EL_evaluate.utils.gen_anno_from_xml import gen_anno_from_xml
 
 
 def count_set(doc_name2overlap_sent_index):
@@ -223,6 +224,7 @@ def main(args):
     os.makedirs(args.output_dir, exist_ok=True)
 
     for dataset in args.datasets:
+        print('dataset', dataset)
         doc_name2txt, doc_name2anno = gen_anno_from_xml(args.input_dir, dataset)
         doc_name2txt_sent_splits = dict()
         for doc_name in doc_name2anno:
@@ -288,14 +290,14 @@ if __name__ == "__main__":
     parser.add_argument(
         '--input_dir',
         type=str,
-        default='/scratch365/yding4/e2e_EL_evaluate/data/prediction/EL/GT/aida',
+        default='/scratch365/yding4/e2e_EL_evaluate/data/aida/xml/trans_span2el_span',
         help='Specify the input xml annotation directory',
     )
 
     parser.add_argument(
         '--output_dir',
         type=str,
-        default='/scratch365/yding4/e2e_EL_evaluate/data/pre2split/EL/GT/aida',
+        default='/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/EL/GT/aida',
         help='Specify the splits output xml directory',
     )
 
