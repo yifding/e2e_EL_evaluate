@@ -94,6 +94,9 @@ def gen_anno_from_xml(
             cur_doc_name = cur_doc_name.replace('&amp;', '&').replace(' ', '_')
             assert cur_doc_name in doc_name2txt
 
+            # **YD** preserve empty annotation for a doc_name
+            doc_name2anno[cur_doc_name]
+
         else:
             if '<annotation>' in line:
                 line = reader.readline()
@@ -110,7 +113,7 @@ def gen_anno_from_xml(
                 e_start = line.find('<wikiName>') + len('<wikiName>')
                 e_end = line.find('</wikiName>')
                 cur_ent_title = '' if '<wikiName/>' in line else line[e_start: e_end]
-                cur_ent_title.replace('&amp;', '&').replace('_', ' ')
+                cur_ent_title = cur_ent_title.replace('&amp;', '&').replace('_', ' ')
 
                 line = reader.readline()
                 assert '<offset>' in line and '</offset>' in line
