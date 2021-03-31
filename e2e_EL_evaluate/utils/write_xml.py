@@ -31,12 +31,13 @@ def write_xml(prefix, dataset, doc_name2txt, doc_name2anno):
     dataset_prefix = os.path.join(prefix, dataset)
     os.makedirs(dataset_prefix, exist_ok=True)
 
-    write_annotation(prefix, dataset, doc_name2anno)
+    xml_file = os.path.join(prefix, dataset + '/' + dataset + '.xml')
+    write_annotation(dataset, xml_file, doc_name2anno)
     write_txt(prefix, dataset, doc_name2txt)
 
 
-def write_annotation(prefix, dataset, doc_name2anno):
-    xml_file = os.path.join(prefix, dataset + '/' + dataset + '.xml')
+def write_annotation(dataset, xml_file, doc_name2anno):
+    print('ready to write:', 'dataset', dataset, 'path', xml_file)
     with open(xml_file, 'w') as writer:
         writer.write('<?xml version="1.0" encoding="UTF-8" standalone="no"?>' + '\n')
         writer.write('<' + dataset + '.entityAnnotation>' + '\n')

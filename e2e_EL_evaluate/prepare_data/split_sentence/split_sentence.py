@@ -1,9 +1,11 @@
 import os
 import argparse
+from textwrap import wrap
 from collections import defaultdict, deque
 
 from nltk.tokenize import sent_tokenize
 
+from e2e_EL_evaluate.utils.write_xml import write_annotation
 from e2e_EL_evaluate.utils.gen_anno_from_xml import gen_anno_from_xml
 
 
@@ -182,6 +184,26 @@ def sent_location(doc_name2txt, doc_name2txt_sent_splits):
     return doc_name2start_end_txt
 
 
+def textwrap_sent_seg(txt_list, max_num_char):
+    re_txt_list = []
+    for txt in txt_list:
+        if len(txt) > max_num_char:
+            # see https://docs.python.org/3.7/library/textwrap.html#textwrap.TextWrapper
+            split_txt = wrap(
+                txt,
+                width=max_num_char,
+                expand_tabs=False,
+                replace_whitespace=False,
+                drop_whitespace=False,
+                break_long_words=False,
+                break_on_hyphens=False,
+            )
+            re_txt_list.extend(split_txt)
+        else:
+            re_txt_list.append(txt)
+    return re_txt_list
+
+'''
 def write_xml(dataset, xml_file, redict):
     print('ready to write:', 'dataset', dataset, 'path', xml_file)
 
@@ -216,6 +238,7 @@ def write_xml(dataset, xml_file, redict):
 
             writer.write('\t' + '</document>' + '\n')
         writer.write('</' + dataset + '.entityAnnotation>' + '\n')
+'''
 
 
 def main(args):
@@ -228,23 +251,19 @@ def main(args):
         doc_name2txt_sent_splits = dict()
         for doc_name in doc_name2anno:
             tmp_anno = doc_name2anno[doc_name]
-            tmp_anno = sorted(tmp_anno, key=lambda x: x['end'])
-            tmp_anno = sorted(tmp_anno, key=lambda x: x['start'])
+            tmp_anno = sorted(tmp_anno, key=lambda x: (x['start'], x['end']))
             doc_name2anno[doc_name] = tmp_anno
 
         # split sentences into multiple pieces
         for doc_name in doc_name2txt:
-            doc_name2txt_sent_splits[doc_name] = sent_tokenize(doc_name2txt[doc_name])
+            # the result of sent_tokenize maybe too long, use "textwrap" of python to shorten them smaller than
+            # the args.max_num_char.
+            # doc_name2txt_sent_splits[doc_name] = sent_tokenize(doc_name2txt[doc_name])
+            tmp_sent_list = sent_tokenize(doc_name2txt[doc_name])
+            tmp_sent_list = textwrap_sent_seg(tmp_sent_list, args.max_num_char)
+            doc_name2txt_sent_splits[doc_name] = tmp_sent_list
+
         doc_name2start_end_txt = sent_location(doc_name2txt, doc_name2txt_sent_splits)
-
-        '''
-        doc_name2overlap_sent_index = check_anno_cross_sent_splits(doc_name2start_end_txt, doc_name2anno)
-        num_set = count_set(doc_name2overlap_sent_index)
-        print('dataset', dataset, 'num_set', num_set)
-
-        doc_name2overlap_sent_index = merge_overlap_sent_index(doc_name2overlap_sent_index)
-        print('merged_indices', doc_name2overlap_sent_index)
-        '''
 
         doc_name2merged_sent = merged_sent(
             doc_name2txt,
@@ -267,8 +286,7 @@ def main(args):
         # **YD** sort the annotations by start first, and end second.
         for doc_name in doc_name2revised_anno:
             tmp = doc_name2revised_anno[doc_name]
-            tmp = sorted(tmp, key=lambda x: x['end'])
-            tmp = sorted(tmp, key=lambda x: x['start'])
+            tmp = sorted(tmp, key=lambda x: (x['start'], x['end']))
             doc_name2revised_anno[doc_name] = list(tmp)
 
         # **YD** fix a bug missing the txt without annotation
@@ -277,8 +295,8 @@ def main(args):
             with open(txt_file, 'w') as writer:
                 writer.write(doc_name2revised_txt[doc_name])
 
-        write_xml(dataset, xml_file, doc_name2revised_anno)
-        write_xml(dataset, remove_xml_file, doc_name2removed_anno)
+        write_annotation(dataset, xml_file, doc_name2revised_anno)
+        write_annotation(dataset, remove_xml_file, doc_name2removed_anno)
 
 
 if __name__ == "__main__":
