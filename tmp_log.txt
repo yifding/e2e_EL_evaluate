@@ -1,4 +1,8 @@
 REL and end2end_neural both set a server and feed txt to the server using a json to output results.
 The entities are evaluate by the names.
 
-The agreement of the annotation and the cost of annotations are two big factors of the work
+The agreement of the annotation and the cost of annotations are two big factors of the work.
+
+TODAY:
+1. add minimum length of txt constraints to the output of txt.
+2. start to figure out download data from sql server.
