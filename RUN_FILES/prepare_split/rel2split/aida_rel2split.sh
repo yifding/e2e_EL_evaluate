@@ -14,6 +14,7 @@ INPUT_DIR=/scratch365/yding4/e2e_EL_evaluate/data/aida/xml/xml_from_rel
 OUTPUT_DIR=/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/EL/rel/aida
 DATASETS="['aida_testa','aida_testb','aida_train']"
 MAX_NUM_CHAR=300
+MIN_NUM_CHAR=100
 
 python ${CODE} --input_dir ${INPUT_DIR} --output_dir ${OUTPUT_DIR} \
-    --datasets ${DATASETS} --max_num_char ${MAX_NUM_CHAR}
+    --datasets ${DATASETS} --max_num_char ${MAX_NUM_CHAR}   --min_num_char ${MIN_NUM_CHAR}
