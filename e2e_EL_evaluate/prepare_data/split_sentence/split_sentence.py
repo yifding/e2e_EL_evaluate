@@ -9,11 +9,13 @@ from e2e_EL_evaluate.utils.write_xml import write_annotation
 from e2e_EL_evaluate.utils.gen_anno_from_xml import gen_anno_from_xml
 
 
+'''
 def count_set(doc_name2overlap_sent_index):
     print('doc_name2overlap_sent_index', doc_name2overlap_sent_index)
     return sum(len(value) for value in doc_name2overlap_sent_index.values())
+'''
 
-
+'''
 def merge_intervals(intervals):
     intervals = sorted(intervals, key=lambda x: x[0])
     ans = []
@@ -23,24 +25,28 @@ def merge_intervals(intervals):
         else:
             ans[-1][1] = max(ans[-1][1], interval[1])
     return ans
+'''
 
 
 def doc_name_with_suffix(doc_name, start, end):
     return doc_name + '-' + str(start) + '_' + str(end)
 
 
+'''
 def merge_overlap_sent_index(doc_name2overlap_sent_index):
     ans = defaultdict(list)
     for doc_name in doc_name2overlap_sent_index:
         merge_out = merge_intervals(doc_name2overlap_sent_index[doc_name])
         ans[doc_name] = merge_out
     return ans
+'''
 
 
 def merged_sent(
             doc_name2txt,
             doc_name2start_end_txt,
-            max_num_char=200,
+            max_num_char=300,
+            min_num_char=100,
         ):
 
     doc_name2merged_sent = dict()
@@ -75,16 +81,25 @@ def merged_sent(
                 dq = deque([])
 
         if cur_length > 0:
-            total_start = dq[0]['start']
-            total_end = dq[-1]['end']
-            new_start_end_txt.append(
-                {
-                    'start': total_start,
-                    'end': total_end,
-                    'txt': txt[total_start: total_end]
-                }
-            )
+            # **YD** consider minimum characters of the sentence
+            if cur_length >= min_num_char:
+                total_start = dq[0]['start']
+                total_end = dq[-1]['end']
+                new_start_end_txt.append(
+                    {
+                        'start': total_start,
+                        'end': total_end,
+                        'txt': txt[total_start: total_end]
+                    }
+                )
 
+            elif len(new_start_end_txt) > 0:
+                total_start = new_start_end_txt[-1]['start']
+                total_end = dq[-1]['end']
+                new_start_end_txt[-1]['end'] = total_end
+                new_start_end_txt[-1]['txt'] = txt[total_start: total_end]
+
+            # **YD** may cause some annotation missing with last sentence.
         doc_name2merged_sent[doc_name] = new_start_end_txt
 
     return doc_name2merged_sent
@@ -111,9 +126,9 @@ def obtain_pos_anno(anno, start_end_txt):
     ans_end = obtain_pos(end, start_end_txt, is_start=False)
 
     if ans_start == -1 or ans_end == -1:
-        print(anno, start_end_txt)
-    assert ans_start != -1
-    assert ans_end != -1
+        print(anno, start_end_txt, ans_start, ans_end)
+    # assert ans_start != -1
+    # assert ans_end != -1
 
     return ans_start, ans_end
 
@@ -132,7 +147,6 @@ def revise_txt(doc_name2start_end_txt, doc_name2txt):
 
 
 def check_anno_cross_sent_splits(doc_name2start_end_txt, doc_name2anno):
-    doc_name2overlap_sent_index = defaultdict(set)
     doc_name2revised_anno = defaultdict(list)
     doc_name2removed_anno = dict()
 
@@ -143,9 +157,11 @@ def check_anno_cross_sent_splits(doc_name2start_end_txt, doc_name2anno):
 
         for index, anno in enumerate(anno_list):
             start_pos, end_pos = obtain_pos_anno(anno, start_end_txt)
-            if start_pos != end_pos:
+            if start_pos == -1 or end_pos == -1:
+                removed_anno_list.append(anno)
+
+            elif start_pos != end_pos:
                 assert start_pos < end_pos
-                doc_name2overlap_sent_index[doc_name].add((start_pos, end_pos))
                 removed_anno_list.append(anno)
             else:
                 suffix_start, suffix_end = start_end_txt[start_pos]['start'], start_end_txt[start_pos]['end']
@@ -157,7 +173,7 @@ def check_anno_cross_sent_splits(doc_name2start_end_txt, doc_name2anno):
 
         doc_name2removed_anno[doc_name] = removed_anno_list
 
-    return doc_name2revised_anno, doc_name2removed_anno, doc_name2overlap_sent_index
+    return doc_name2revised_anno, doc_name2removed_anno
 
 
 def sent_location(doc_name2txt, doc_name2txt_sent_splits):
@@ -203,43 +219,6 @@ def textwrap_sent_seg(txt_list, max_num_char):
             re_txt_list.append(txt)
     return re_txt_list
 
-'''
-def write_xml(dataset, xml_file, redict):
-    print('ready to write:', 'dataset', dataset, 'path', xml_file)
-
-    with open(xml_file, 'w') as writer:
-        writer.write('<?xml version="1.0" encoding="UTF-8" standalone="no"?>' + '\n')
-        writer.write('<' + dataset + '.entityAnnotation>' + '\n')
-        for document in sorted(redict.keys()):
-            tmps = redict[document]
-            document = document.replace(' ', '_').replace('&', '&amp;')
-
-            # <document docName="20001115_AFP_ARB.0093.eng">
-            writer.write('\t' + '<document docName="' + document + '">' + '\n')
-            for anno in tmps:
-                # a preparation
-                mention_txt = anno['mention_txt']
-                entity_txt = anno['entity_txt']
-                start = anno['start']
-                end = anno['end']
-
-                mention_txt = mention_txt.replace('_', ' ').replace('&', '&amp;')
-                entity_txt = entity_txt.replace('_', ' ').replace('&', '&amp;')
-
-                # b write things down
-                writer.write('\t\t' + '<annotation>' + '\n')
-
-                writer.write('\t\t\t' + '<mention>' + mention_txt + '</mention>' + '\n')
-                writer.write('\t\t\t' + '<wikiName>' + entity_txt + '</wikiName>' + '\n')
-                writer.write('\t\t\t' + '<offset>' + str(start) + '</offset>' + '\n')
-                writer.write('\t\t\t' + '<length>' + str(end - start) + '</length>' + '\n')
-
-                writer.write('\t\t' + '</annotation>' + '\n')
-
-            writer.write('\t' + '</document>' + '\n')
-        writer.write('</' + dataset + '.entityAnnotation>' + '\n')
-'''
-
 
 def main(args):
     assert os.path.isdir(args.input_dir)
@@ -249,6 +228,7 @@ def main(args):
         print('dataset', dataset)
         doc_name2txt, doc_name2anno = gen_anno_from_xml(args.input_dir, dataset)
         doc_name2txt_sent_splits = dict()
+
         for doc_name in doc_name2anno:
             tmp_anno = doc_name2anno[doc_name]
             tmp_anno = sorted(tmp_anno, key=lambda x: (x['start'], x['end']))
@@ -269,9 +249,10 @@ def main(args):
             doc_name2txt,
             doc_name2start_end_txt,
             max_num_char=args.max_num_char,
+            min_num_char=args.min_num_char,
         )
 
-        doc_name2revised_anno, doc_name2removed_anno, doc_name2overlap_sent_index = check_anno_cross_sent_splits(
+        doc_name2revised_anno, doc_name2removed_anno = check_anno_cross_sent_splits(
             doc_name2merged_sent, doc_name2anno,
         )
 
@@ -327,6 +308,12 @@ if __name__ == "__main__":
     parser.add_argument(
         "--max_num_char",
         default=300,
+        type=int,
+    )
+
+    parser.add_argument(
+        "--min_num_char",
+        default=100,
         type=int,
     )
 
