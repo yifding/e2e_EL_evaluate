@@ -30,21 +30,36 @@ class DataBaseQueryUtil:
 
         return result
 
+    def fetch_original_document(self, doc_id):
 
-def main():
+        query = f"select * from document where doc_id = '{doc_id}'"
+
+        self.mycursor.execute(query)
+        result = self.mycursor.fetchall()
+
+        return result
+
+    def fetch_original_annotations(self, doc_id, model):
+        query = f"select * from annotations where annotations.document_id = '{doc_id}' " \
+                f"and annotations.model_enum = '{model}';"
+
+        self.mycursor.execute(query)
+        result = self.mycursor.fetchall()
+
+        return result
+
+
+if __name__ == '__main__':
 
     dbq = DataBaseQueryUtil()
 
     annotated_documents = dbq.fetch_document_annotations()
 
-    for doc in annotated_documents:
-
+    for doc in annotated_documents[:1]:
+        print('doc', type(doc), doc)
         doc_id = doc[0]
         model_type = doc[1]
         annotation_text = doc[2]
 
-        print(doc_id, model_type)
-        print(annotation_text)
-
-if __name__ == '__main__':
-    main()
+        # print(doc_id, model_type)
+        # print(annotation_text)
