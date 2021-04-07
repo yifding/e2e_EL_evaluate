@@ -55,6 +55,17 @@ class DataBaseQueryUtil:
     | entire_text | varchar(15000) | YES  |     | NULL    |       |
     +-------------+----------------+------+-----+---------+-------+
 
+    mysql> describe combinations_completed; document_id-model pair;
+    +-------------+--------------+------+-----+---------+----------------+
+    | Field       | Type         | Null | Key | Default | Extra          |
+    +-------------+--------------+------+-----+---------+----------------+
+    | id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+    | document_id | varchar(300) | YES  | MUL | NULL    |                |
+    | model_enum  | varchar(100) | YES  |     | NULL    |                |
+    | checked_out | tinyint(1)   | YES  |     | 0       |                |
+    | completed   | tinyint(1)   | YES  |     | 0       |                |
+    +-------------+--------------+------+-----+---------+----------------+
+
     """
 
     def __init__(self):
@@ -89,6 +100,7 @@ class DataBaseQueryUtil:
     def query_ori_anno(self):
         return f"select * from annotations;"
 
+    @ property
     def query_doc_model_pair(self):
         return f"select * from combinations_completed;"
 
