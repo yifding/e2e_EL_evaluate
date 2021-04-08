@@ -16,6 +16,7 @@ def main(args):
     triple2txt = dict()
     triple2anno = dict()
     triple2select = dict()
+    doc_name2select = dict()
 
     for model in args.models:
         for dataset in args.datasets:
@@ -26,6 +27,7 @@ def main(args):
             doc_name2txt, doc_name2anno = gen_anno_from_xml(input_dir, dataset)
 
             for doc_name in doc_name2txt:
+                doc_name2select[doc_name] = 0
                 triple2select[model, dataset, doc_name] = 0
                 triple2txt[model, dataset, doc_name] = doc_name2txt[doc_name]
 
@@ -33,14 +35,18 @@ def main(args):
                 triple2anno[model, dataset, doc_name] = doc_name2anno[doc_name]
 
     random.seed(args.seed)
-    keys = list(triple2select.keys())
+    keys = list(doc_name2select.keys())
     random.shuffle(keys)
 
     print('total document is: ', len(keys))
     for key in keys[:args.max_num_docs]:
-        triple2select[key] = 1
+        doc_name2select[key] = 1
 
-    print(len(keys[:args.max_num_docs]), 'over total doc: ', len(keys), ' is selected !!!')
+    print('for one model, ', len(keys[:args.max_num_docs]), 'over total doc: ', len(keys), ' is selected !!!')
+
+    for model, dataset, doc_name in triple2select:
+        if doc_name2select[doc_name] == 1:
+            triple2select[model, dataset, doc_name] = 1
 
     # filter out triple2txt and triple2anno
     for triple in triple2select:
@@ -92,7 +98,7 @@ if __name__ == "__main__":
     parser.add_argument(
         '--output_dir',
         type=str,
-        default='/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/',
+        default='/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/sample_docs',
         help='Specify the input xml annotation directory',
     )
 
