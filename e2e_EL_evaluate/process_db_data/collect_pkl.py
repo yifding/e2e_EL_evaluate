@@ -380,6 +380,10 @@ def main(args):
 
     print(f'{num_un_matched_txt} / {len(double2label_txt)} are different txts!')
 
+    # TODO: **YD** check2: combine the txt and anno in database to write a new version of "xml" database.
+    # 1. extract the dataset2doc_name dictionary of list
+    # 2. write back to xml.
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
