@@ -186,7 +186,7 @@ def process_entire_text(entire_text):
 
         pre_pos = entire_text.find(pre, cur_pos)
 
-    text += entire_text[cur_pos: ]
+    text += entire_text[cur_pos:]
 
     return anno_list, text
 
@@ -259,6 +259,15 @@ def main(args):
     print("ori_anno", len(ori_anno[0]), ori_anno[0], '\n')    # len=7
     print("doc_model_pair", len(doc_model_pair[0]), doc_model_pair[0], '\n')  # len=5
 
+    double2label_anno, double2label_text = collect_doc_anno(doc_anno)
+    double2anno = collect_anno(ori_anno)
+    doc_name2txt = collect_doc(ori_doc)
+
+    model_set = set()
+    for double in double2anno:
+        model, doc_name = double
+        model_set.add(model)
+    print(model_set)
 
 
 if __name__ == "__main__":
