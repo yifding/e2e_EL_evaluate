@@ -1,4 +1,5 @@
 import os
+import re
 import pickle
 import argparse
 
@@ -7,7 +8,8 @@ from collections import defaultdict
 
 DBModel2XMLModel = {
     'GT': 'GT',
-
+    'REL': 'rel',
+    'E2E': 'end2end_neural_el',
 }
 
 """
@@ -77,7 +79,7 @@ def collect_doc(ori_doc):
     doc_name2txt = dict()
     for (doc_id, doc_body) in ori_doc:
         # repeated documentation is not allowed
-        assert doc_id not in doc_name
+        assert doc_id not in doc_name2txt
         doc_name2txt[doc_id] = doc_body
     return doc_name2txt
 
@@ -125,7 +127,7 @@ def collect_anno(ori_anno):
         double2anno[(model_enum, document_id)].append(
             {
                 'start': start_pos,
-                'end': end,
+                'end': end_pos,
                 'mention_txt': mention,
                 'entity_txt': entity,
             }
@@ -139,56 +141,135 @@ def collect_anno(ori_anno):
     return double2anno
 
 
-def process_entire_text(entire_text):
+def old_process_entire_txt(entire_txt):
     """
     Core function to process the labelled text to obtain
-    :param entire_text: raw text with potential annotated entities.
+    :param entire_txt: raw text with potential annotated entities.
 
     '<div style="background-color: yellow; display: inline;" id="1ZeqcTpSxhSG" data-annotation="https://en.wikipedia.org/wiki/Germany">German</div>
 
     :return: (anno_list, text) tuple,
-    anno_list: a list of annotations (dictionary)
     text: raw text without entity annotations
+    anno_list: a list of annotations (dictionary)
     """
-    text = ''
+    txt = ''
     anno_list = []
+    pre_pre = '<div style="background-color: yellow; display: inline;" id="'
     pre = 'data-annotation="https://en.wikipedia.org/wiki/'
     mid = '">'
     post = '</div>'
 
     cur_pos = 0
-    pre_pos = entire_text.find(pre, cur_pos)
-    while pre_pos >= 0:
-        text += entire_text[cur_pos: pre_pos]
+    pre_pre_pos = entire_txt.find(pre_pre, cur_pos)
 
+    print('entire_txt:')
+    print(repr(entire_txt))
+
+    while pre_pre_pos >= 0:
+        txt += entire_txt[cur_pos: pre_pre_pos]
+
+        cur_pos = pre_pre_pos
+        pre_pos = entire_txt.find(pre, cur_pos)
         entity_start = pre_pos + len(pre)
-        mid_pos = entire_text.find(mid, entity_start)
+
+        mid_pos = entire_txt.find(mid, entity_start)
         assert mid_pos > entity_start
 
-        entity = entire_text[entity_start:mid_pos]
+        entity = entire_txt[entity_start:mid_pos]
         mention_start = mid_pos + len(mid)
-        post_pos = entire_text.find(post, mention_start)
+        post_pos = entire_txt.find(post, mention_start)
 
         assert post_pos > mention_start
-        mention = entire_text[mention_start:post_pos]
+        mention = entire_txt[mention_start:post_pos]
 
         anno_list.append(
             {
-                'start': len(text),
-                'end': len(text) + len(mention),
+                'start': len(txt),
+                'end': len(txt) + len(mention),
                 'mention_txt': mention,
                 'entity_txt': entity,
             }
         )
 
-        text += mention
+        txt += mention
         cur_pos = post_pos + len(post)
 
-        pre_pos = entire_text.find(pre, cur_pos)
+        pre_pre_pos = entire_txt.find(pre_pre, cur_pos)
 
-    text += entire_text[cur_pos:]
+    txt += entire_txt[cur_pos:]
 
-    return anno_list, text
+    return txt, anno_list
+
+
+def process_entire_txt(entire_txt):
+    """
+    Core function to process the labelled text to obtain, use regular expression to extract.
+    :param entire_txt: raw text with potential annotated entities.
+
+    '<div style="background-color: yellow; display: inline;" id="1ZeqcTpSxhSG" data-annotation="https://en.wikipedia.org/wiki/Germany">German</div>
+
+    :return: (txt, anno_list) tuple,
+    txt: raw text without entity annotations
+    anno_list: a list of annotations (dictionary)
+    """
+
+    def extract(s):
+        """
+        :param s: r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(.+)">(.+)</div>'
+        :return: mention, entity
+
+        txt: plain txt without annotations.
+        """
+
+        wiki_prefix = 'https://en.wikipedia.org/wiki/'
+        pre = 'data-annotation="'
+        mid = '">'
+        post = '</div>'
+
+        pre_pos = s.find(pre)
+        mid_pos = s.find(mid)
+        post_pos = s.find(post)
+        assert 0 < pre_pos < mid_pos < post_pos
+
+        mention = s[mid_pos + len(mid): post_pos]
+        entity = s[pre_pos + len(pre): mid_pos]
+        if entity.startswith(wiki_prefix):
+            entity = entity[len(wiki_prefix):]
+        else:
+            entity = ''
+
+        return mention, entity
+
+    txt = ''
+    anno_list = []
+    cur_pos = 0
+
+    r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(.*)">(.*)</div>'
+    # **YD** enhenced version of regular expression matching pattern.
+    # r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(((?!<div)(?!</div>).)+)</div>'
+
+    for i in re.finditer(r_s, entire_txt):
+        start = i.start()
+        end = i.end()
+        txt += entire_txt[cur_pos: start]
+        cur_pos = end
+
+        mention, entity = extract(entire_txt[start: end])
+
+        if entity != '':
+            anno_list.append(
+                {
+                    'start': len(txt),
+                    'end': len(txt) + len(mention),
+                    'mention_txt': mention,
+                    'entity_txt': entity,
+                }
+            )
+        txt += mention
+
+    txt += entire_txt[cur_pos:]
+
+    return txt, anno_list,
 
 
 def collect_doc_anno(doc_anno):
@@ -231,14 +312,14 @@ def collect_doc_anno(doc_anno):
     double2label_txt = dict()
 
     for (doc_id, model_enum, entire_text) in doc_anno:
-        anno_list, txt = process_entire_text(entire_text)
+        txt, anno_list = process_entire_txt(entire_text)
         assert (model_enum, doc_id) not in double2label_anno
         assert (model_enum, doc_id) not in double2label_txt
 
         double2label_anno[(model_enum, doc_id)] = anno_list
         double2label_txt[(model_enum, doc_id)] = txt
 
-    return double2label_anno, double2label_text
+    return double2label_anno, double2label_txt
 
 
 def main(args):
@@ -259,7 +340,7 @@ def main(args):
     print("ori_anno", len(ori_anno[0]), ori_anno[0], '\n')    # len=7
     print("doc_model_pair", len(doc_model_pair[0]), doc_model_pair[0], '\n')  # len=5
 
-    double2label_anno, double2label_text = collect_doc_anno(doc_anno)
+    double2label_anno, double2label_txt = collect_doc_anno(doc_anno)
     double2anno = collect_anno(ori_anno)
     doc_name2txt = collect_doc(ori_doc)
 
@@ -267,7 +348,20 @@ def main(args):
     for double in double2anno:
         model, doc_name = double
         model_set.add(model)
-    print(model_set)
+    print('DBModels', model_set)
+
+    # **YD** Check 1: in double2label_txt, all the txts are equal to the doc_name2txt
+    for double in double2label_txt:
+        model, doc_name = double
+        assert doc_name in doc_name2txt
+        label_txt = double2label_txt[double]
+        txt = doc_name2txt[doc_name]
+        if label_txt != txt:
+            print('model', model, 'doc_name', doc_name)
+            print('label_txt:')
+            print(label_txt)
+            print('txt:')
+            print(txt)
 
 
 if __name__ == "__main__":
