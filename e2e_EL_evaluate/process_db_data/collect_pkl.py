@@ -1,5 +1,6 @@
 import os
 import re
+import html
 import pickle
 import argparse
 
@@ -213,6 +214,9 @@ def process_entire_txt(entire_txt):
     anno_list: a list of annotations (dictionary)
     """
 
+    def process(s):
+        return html.unescape(s)
+
     def extract(s):
         """
         :param s: r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(.+)">(.+)</div>'
@@ -240,11 +244,12 @@ def process_entire_txt(entire_txt):
 
         return mention, entity
 
+    entire_txt = process(entire_txt)
     txt = ''
     anno_list = []
     cur_pos = 0
 
-    r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(.*)">(.*)</div>'
+    r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(.*?)">(.*?)</div>'
     # **YD** enhenced version of regular expression matching pattern.
     # r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(((?!<div)(?!</div>).)+)</div>'
 
@@ -269,7 +274,7 @@ def process_entire_txt(entire_txt):
 
     txt += entire_txt[cur_pos:]
 
-    return txt, anno_list,
+    return txt, anno_list
 
 
 def collect_doc_anno(doc_anno):
@@ -284,7 +289,9 @@ def collect_doc_anno(doc_anno):
     +-------------+----------------+------+-----+---------+-------+
 
     :param doc_anno: list of tuples, [(doc_id, model_enum, entire_text)]
-    :return: double2label_anno, double2label_text
+    :return: double2doc_anno, double2label_anno, double2label_text
+
+    double2doc_anno: a dictionary of txt,
     double2label_anno: a dictionary of list,
     {
         (model, doc_name): [
@@ -310,16 +317,19 @@ def collect_doc_anno(doc_anno):
 
     double2label_anno = dict()
     double2label_txt = dict()
+    double2doc_anno = dict()
 
     for (doc_id, model_enum, entire_text) in doc_anno:
         txt, anno_list = process_entire_txt(entire_text)
+        assert (model_enum, doc_id) not in double2doc_anno
         assert (model_enum, doc_id) not in double2label_anno
         assert (model_enum, doc_id) not in double2label_txt
 
+        double2doc_anno[(model_enum, doc_id)] = entire_text
         double2label_anno[(model_enum, doc_id)] = anno_list
         double2label_txt[(model_enum, doc_id)] = txt
 
-    return double2label_anno, double2label_txt
+    return double2doc_anno, double2label_anno, double2label_txt
 
 
 def main(args):
@@ -340,7 +350,7 @@ def main(args):
     print("ori_anno", len(ori_anno[0]), ori_anno[0], '\n')    # len=7
     print("doc_model_pair", len(doc_model_pair[0]), doc_model_pair[0], '\n')  # len=5
 
-    double2label_anno, double2label_txt = collect_doc_anno(doc_anno)
+    double2doc_anno, double2label_anno, double2label_txt = collect_doc_anno(doc_anno)
     double2anno = collect_anno(ori_anno)
     doc_name2txt = collect_doc(ori_doc)
 
@@ -351,17 +361,24 @@ def main(args):
     print('DBModels', model_set)
 
     # **YD** Check 1: in double2label_txt, all the txts are equal to the doc_name2txt
+    num_un_matched_txt = 0
     for double in double2label_txt:
         model, doc_name = double
         assert doc_name in doc_name2txt
         label_txt = double2label_txt[double]
+        doc_anno = double2doc_anno[double]
         txt = doc_name2txt[doc_name]
         if label_txt != txt:
             print('model', model, 'doc_name', doc_name)
+            print('doc_anno:')
+            print(doc_anno)
             print('label_txt:')
-            print(label_txt)
+            print(repr(label_txt))
             print('txt:')
-            print(txt)
+            print(repr(txt))
+            num_un_matched_txt += 1
+
+    print(f'{num_un_matched_txt} / {len(double2label_txt)} are different txts!')
 
 
 if __name__ == "__main__":
