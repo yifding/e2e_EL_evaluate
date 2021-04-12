@@ -250,7 +250,11 @@ def process_entire_txt(entire_txt):
     anno_list = []
     cur_pos = 0
 
-    r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(.*?)">(.*?)</div>'
+    # r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(.*?)">(.*?)</div>'
+
+    # consider line changer
+    r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="([\s\S]*?)">([\s\S]*?)</div>'
+
     # **YD** enhenced version of regular expression matching pattern.
     # r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(((?!<div)(?!</div>).)+)</div>'
 
