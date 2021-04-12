@@ -65,11 +65,6 @@ def process_entire_txt(entire_txt):
 
         mention = s[mid_pos + len(mid): post_pos]
         entity = s[pre_pos + len(pre): mid_pos]
-        print(s)
-        print('\n')
-        # print('mention', mention)
-        # print('entity', entity)
-        # print('\n')
         if entity.startswith(wiki_prefix):
             entity = entity[len(wiki_prefix):]
         else:
@@ -85,9 +80,6 @@ def process_entire_txt(entire_txt):
     for i in re.finditer(r_s, entire_txt):
         start = i.start()
         end = i.end()
-        # print('captured annotations!')
-        # print(entire_txt[start:end])
-        # print('\n')
         txt += entire_txt[cur_pos: start]
         cur_pos = end
 
