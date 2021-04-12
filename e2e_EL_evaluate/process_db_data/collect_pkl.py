@@ -145,66 +145,6 @@ def collect_anno(ori_anno):
 
 def old_process_entire_txt(entire_txt):
     """
-    Core function to process the labelled text to obtain
-    :param entire_txt: raw text with potential annotated entities.
-
-    '<div style="background-color: yellow; display: inline;" id="1ZeqcTpSxhSG" data-annotation="https://en.wikipedia.org/wiki/Germany">German</div>
-
-    :return: (anno_list, text) tuple,
-    text: raw text without entity annotations
-    anno_list: a list of annotations (dictionary)
-    """
-    txt = ''
-    anno_list = []
-    pre_pre = '<div style="background-color: yellow; display: inline;" id="'
-    pre = 'data-annotation="https://en.wikipedia.org/wiki/'
-    mid = '">'
-    post = '</div>'
-
-    cur_pos = 0
-    pre_pre_pos = entire_txt.find(pre_pre, cur_pos)
-
-    print('entire_txt:')
-    print(repr(entire_txt))
-
-    while pre_pre_pos >= 0:
-        txt += entire_txt[cur_pos: pre_pre_pos]
-
-        cur_pos = pre_pre_pos
-        pre_pos = entire_txt.find(pre, cur_pos)
-        entity_start = pre_pos + len(pre)
-
-        mid_pos = entire_txt.find(mid, entity_start)
-        assert mid_pos > entity_start
-
-        entity = entire_txt[entity_start:mid_pos]
-        mention_start = mid_pos + len(mid)
-        post_pos = entire_txt.find(post, mention_start)
-
-        assert post_pos > mention_start
-        mention = entire_txt[mention_start:post_pos]
-
-        anno_list.append(
-            {
-                'start': len(txt),
-                'end': len(txt) + len(mention),
-                'mention_txt': mention,
-                'entity_txt': entity,
-            }
-        )
-
-        txt += mention
-        cur_pos = post_pos + len(post)
-
-        pre_pre_pos = entire_txt.find(pre_pre, cur_pos)
-
-    txt += entire_txt[cur_pos:]
-
-    return txt, anno_list
-
-
-def process_entire_txt(entire_txt):
-    """
     Core function to process the labelled text to obtain, use regular expression to extract.
     :param entire_txt: raw text with potential annotated entities.
 
@@ -276,6 +216,90 @@ def process_entire_txt(entire_txt):
                 }
             )
         txt += mention
+
+    txt += entire_txt[cur_pos:]
+
+    return txt, anno_list
+
+
+def process_entire_txt(entire_txt):
+    """
+    Core function to process the labelled text to obtain, use regular expression to extract.
+    :param entire_txt: raw text with potential annotated entities.
+
+    '<div style="background-color: yellow; display: inline;" id="1ZeqcTpSxhSG" data-annotation="https://en.wikipedia.org/wiki/Germany">German</div>
+
+    :return: (txt, anno_list) tuple,
+    txt: raw text without entity annotations
+    anno_list: a list of annotations (dictionary)
+    """
+
+    r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="([\s\S]*?)">([\s\S]*?)</div>'
+
+    # **YD** enhenced version of regular expression matching pattern.
+    # r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(((?!<div)(?!</div>).)+)</div>'
+
+    wiki_prefix = 'https://en.wikipedia.org/wiki/'
+    pre = 'data-annotation="'
+    mid = '">'
+    post = '</div>'
+
+    def process(s):
+        return html.unescape(s)
+
+    def extract(s):
+        """
+        :param s: r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(.+)">(.+)</div>'
+        :return: mention, entity
+
+        txt: plain txt without annotations.
+        """
+        while s.count(pre) > 1:
+            tmp = list(re.finditer(r_s, s[1:]))
+            assert len(tmp) == 1 and tmp[0] is not None
+            s = tmp[0].group(0)
+
+        assert s != None
+        pre_pos = s.find(pre)
+        mid_pos = s.find(mid)
+        post_pos = s.find(post)
+        assert 0 < pre_pos < mid_pos < post_pos
+
+        mention = s[mid_pos + len(mid): post_pos]
+        entity = s[pre_pos + len(pre): mid_pos]
+        if entity.startswith(wiki_prefix):
+            entity = entity[len(wiki_prefix):]
+        else:
+            entity = ''
+
+        return mention, entity
+
+    entire_txt = process(entire_txt)
+    txt = ''
+    anno_list = []
+    cur_pos = 0
+
+    for i in re.finditer(r_s, entire_txt):
+        start = i.start()
+        end = i.end()
+        txt += entire_txt[cur_pos: start]
+        cur_pos = end
+
+        mention, entity = extract(entire_txt[start: end])
+
+        if entity != '':
+            anno_list.append(
+                {
+                    'start': len(txt),
+                    'end': len(txt) + len(mention),
+                    'mention_txt': mention,
+                    'entity_txt': entity,
+                }
+            )
+        txt += mention
+
+        while entire_txt[cur_pos:].startswith(post):
+            cur_pos += len(post)
 
     txt += entire_txt[cur_pos:]
 
