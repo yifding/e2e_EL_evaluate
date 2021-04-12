@@ -37,11 +37,12 @@ DBModel2XMLModel = {
     +----------+----------------+------+-----+---------+-------+
 
 
-    mysql> describe document_annotation; annotated results; should perform post-processing to get standard format.
+    mysql> describe document_annotation;
     +-------------+----------------+------+-----+---------+-------+
     | Field       | Type           | Null | Key | Default | Extra |
     +-------------+----------------+------+-----+---------+-------+
     | doc_id      | varchar(300)   | NO   | PRI | NULL    |       |
+    | user_id     | varchar(200)   | YES  |     | NULL    |       |
     | model_enum  | varchar(300)   | YES  |     | NULL    |       |
     | entire_text | varchar(15000) | YES  |     | NULL    |       |
     +-------------+----------------+------+-----+---------+-------+
@@ -284,11 +285,12 @@ def collect_doc_anno(doc_anno):
     | Field       | Type           | Null | Key | Default | Extra |
     +-------------+----------------+------+-----+---------+-------+
     | doc_id      | varchar(300)   | NO   | PRI | NULL    |       |
+    | user_id     | varchar(200)   | YES  |     | NULL    |       |
     | model_enum  | varchar(300)   | YES  |     | NULL    |       |
     | entire_text | varchar(15000) | YES  |     | NULL    |       |
     +-------------+----------------+------+-----+---------+-------+
 
-    :param doc_anno: list of tuples, [(doc_id, model_enum, entire_text)]
+    :param doc_anno: list of tuples, [(doc_id, user_id, model_enum, entire_text)]
     :return: double2doc_anno, double2label_anno, double2label_text
 
     double2doc_anno: a dictionary of txt,
@@ -319,7 +321,7 @@ def collect_doc_anno(doc_anno):
     double2label_txt = dict()
     double2doc_anno = dict()
 
-    for (doc_id, model_enum, entire_text) in doc_anno:
+    for (doc_id, user_id, model_enum, entire_text) in doc_anno:
         txt, anno_list = process_entire_txt(entire_text)
         assert (model_enum, doc_id) not in double2doc_anno
         assert (model_enum, doc_id) not in double2label_anno
@@ -371,7 +373,7 @@ def main(args):
         if label_txt != txt:
             print('model', model, 'doc_name', doc_name)
             print('doc_anno:')
-            print(doc_anno)
+            print(repr(doc_anno))
             print('label_txt:')
             print(repr(label_txt))
             print('txt:')
