@@ -16,8 +16,7 @@ import html
 
 
 # problem 3/117 errors
-entire_txt = '<div style="background-color: yellow; display: inline;" id="beA9OuKiTQ5W" data-annotation="https://en.wikipedia.org/wiki/Anthony_Grant"><div style="background-color: yellow; display: inline;" id="yWOq1WevGL1h" data-annotation="https://en.wikipedia.org/wiki/Anthony_Grant">Anthony Grant</div></div>,'
-# entire_txt = 'VCU hired Smart to be the head coach in the spring of 2009 after the program\'s previous coach, <div style="background-color: yellow; display: inline;" id="beA9OuKiTQ5W" data-annotation="https://en.wikipedia.org/wiki/Anthony_Grant"><div style="background-color: yellow; display: inline;" id="yWOq1WevGL1h" data-annotation="https://en.wikipedia.org/wiki/Anthony_Grant">Anthony Grant</div></div>, left to become the head coach of the <div style="background-color: yellow; display: inline;" id="rgOC9f10bR6X" data-annotation="https://en.wikipedia.org/wiki/Alabama_Crimson_Tide_men%27s_basketball">Alabama Crimson Tide men\'s basketball team</div>. Smart\'s hire made him the 10th-youngest head coach in Division I. In <div style="background-color: yellow; display: inline;" id="S82akw3SIevW" data-annotation="https://en.wikipedia.org/wiki/2009%E2%80%9310_Alabama_Crimson_Tide_men%27s_basketball_team">his first season</div>, he led the Rams to a 27–10 season and a <div style="background-color: yellow; display: inline;" id="vNO4xst0Jzn3" data-annotation="https://en.wikipedia.org/wiki/2010_College_Basketball_Invitational">CBI Championship</div> after VCU swept <div style="background-color: yellow; display: inline;" id="0MHsjDbfx2Lb" data-annotation="https://en.wikipedia.org/wiki/2009%E2%80%9310_Saint_Louis_Billikens_men%27s_basketball_team">Saint Louis</div> in the championship best-of-three series.'
+entire_txt = 'VCU hired Smart to be the head coach in the spring of 2009 after the program\'s previous coach, <div style="background-color: yellow; display: inline;" id="beA9OuKiTQ5W" data-annotation="https://en.wikipedia.org/wiki/Anthony_Grant"><div style="background-color: yellow; display: inline;" id="yWOq1WevGL1h" data-annotation="https://en.wikipedia.org/wiki/Anthony_Grant">Anthony Grant</div></div>, left to become the head coach of the <div style="background-color: yellow; display: inline;" id="rgOC9f10bR6X" data-annotation="https://en.wikipedia.org/wiki/Alabama_Crimson_Tide_men%27s_basketball">Alabama Crimson Tide men\'s basketball team</div>. Smart\'s hire made him the 10th-youngest head coach in Division I. In <div style="background-color: yellow; display: inline;" id="S82akw3SIevW" data-annotation="https://en.wikipedia.org/wiki/2009%E2%80%9310_Alabama_Crimson_Tide_men%27s_basketball_team">his first season</div>, he led the Rams to a 27–10 season and a <div style="background-color: yellow; display: inline;" id="vNO4xst0Jzn3" data-annotation="https://en.wikipedia.org/wiki/2010_College_Basketball_Invitational">CBI Championship</div> after VCU swept <div style="background-color: yellow; display: inline;" id="0MHsjDbfx2Lb" data-annotation="https://en.wikipedia.org/wiki/2009%E2%80%9310_Saint_Louis_Billikens_men%27s_basketball_team">Saint Louis</div> in the championship best-of-three series.'
 # entire_txt = '<div style="background-color: yellow; display: inline;" id="buUpwjyD83h4" data-annotation="https://en.wikipedia.org/wiki/University_of_Chester">Services\nChester Business School\nResearch\nTheology</div> and Religious Studies MainOur Courses\nStaff Research\nNews and Events\nStaff\nStudents\nAboutOutreach\nSocial Responsibility\nAbout the University\nPress Office\nAlumni\nWho to Contact\nFlash Fiction MagazineFlash Adverts\nFlash Bibliography\nFlash Links\nFlash '
 # entire_txt = '<div style="background-color: yellow; display: inline;" id="LbGT8OOc5GBG" data-annotation="https://en.wikipedia.org/wiki/National_Basketball_Association">NBA</div> BASKETBALL - STANDINGS AFTER THURSDAY \'S GAMES.\n<div style="background-color: yellow; display: inline;" id="Z1AFK2SVzWOO" data-annotation="https://en.wikipedia.org/wiki/New_York">NEW YORK</div> 1996-12-06\nStandings of <div style="background-color: yellow; display: inline;" id="wplx4X6aVSAQ" data-annotation="https://en.wikipedia.org/wiki/National_Basketball_Association">National Basketball Association</div> teams after games played on Thursday\n( tabulate under won, lost, percentage, games behind ):<div style="background-color: yellow; display: inline;" id="bMG1KAQ05SZ8" data-annotation="https://en.wikipedia.org/wiki/Eastern_Conference_(NBA)">\nEASTERN CONFERENCE</div>\n<div style="background-color: yellow; display: inline;" id="XwVn6qVS5Pin" data-annotation="https://en.wikipedia.org/wiki/Atlantic_Division_(NBA)">ATLANTIC </div><div style="background-color: yellow; display: inline;" id="zKd3W2EMMyso" data-annotation="https://en.wikipedia.org/wiki/Atlantic_Division_(NBA)">DIVISION</div>\nW L PCT GB\n<div style="background-color: yellow; display: inline;" id="xib2LGHxihzA" data-annotation="https://en.wikipedia.org/wiki/Miami_(disambiguation)">MIAMI</div> 14 4 .778 -\n<div style="background-color: yellow; display: inline;" id="zePsl72jMYFr" data-annotation="https://en.wikipedia.org/wiki/New_York_Knicks">NEW YORK</div> 10 6 .625 3\n<div style="background-color: yellow; display: inline;" id="8sljPiGNgstn" data-annotation="https://en.wikipedia.org/wiki/Orlando_Magic">ORLANDO</div> 8 6 .571 4\n<div style="background-color: yellow; display: inline;" id="hUHgK2opuMCG" data-annotation="https://en.wikipedia.org/wiki/Washington_Wizards">WASHINGTON</div> 7 9 .438 6\n<div style="background-color: yellow; display: inline;" id="GDgw8AdTdUsv" data-annotation="https://en.wikipedia.org/wiki/Philadelphia_76ers">PHILADELPHIA</div> 7'
 
@@ -33,6 +32,16 @@ def process_entire_txt(entire_txt):
     anno_list: a list of annotations (dictionary)
     """
 
+    r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="([\s\S]*?)">([\s\S]*?)</div>'
+
+    # **YD** enhenced version of regular expression matching pattern.
+    # r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(((?!<div)(?!</div>).)+)</div>'
+
+    wiki_prefix = 'https://en.wikipedia.org/wiki/'
+    pre = 'data-annotation="'
+    mid = '">'
+    post = '</div>'
+
     def process(s):
         return html.unescape(s)
 
@@ -43,13 +52,12 @@ def process_entire_txt(entire_txt):
 
         txt: plain txt without annotations.
         """
+        while s.count(pre) > 1:
+            tmp = list(re.finditer(r_s, s[1:]))
+            assert len(tmp) == 1 and tmp[0] is not None
+            s = tmp[0].group(0)
 
-        wiki_prefix = 'https://en.wikipedia.org/wiki/'
-        pre = 'data-annotation="'
-        mid = '">'
-        post = '</div>'
-
-        if
+        assert s != None
         pre_pos = s.find(pre)
         mid_pos = s.find(mid)
         post_pos = s.find(post)
@@ -74,10 +82,6 @@ def process_entire_txt(entire_txt):
     anno_list = []
     cur_pos = 0
 
-    r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="([\s\S]*?)">([\s\S]*?)</div>'
-    # **YD** enhenced version of regular expression matching pattern.
-    # r_s = r'<div style="background-color: yellow; display: inline;" id="([a-zA-Z0-9]{12})" data-annotation="(((?!<div)(?!</div>).)+)</div>'
-
     for i in re.finditer(r_s, entire_txt):
         start = i.start()
         end = i.end()
@@ -99,6 +103,9 @@ def process_entire_txt(entire_txt):
                 }
             )
         txt += mention
+
+        while entire_txt[cur_pos:].startswith(post):
+            cur_pos += len(post)
 
     txt += entire_txt[cur_pos:]
 
