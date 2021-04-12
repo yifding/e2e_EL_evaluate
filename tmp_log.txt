@@ -4,7 +4,8 @@ The entities are evaluate by the names.
 The agreement of the annotation and the cost of annotations are two big factors of the work.
 
 TODAY:
-[DONE]1. start to figure out download data from sql server.
-[TODO]2. check the process step.
+[TODO]0. re-run the db extraction and processing.
+[TODO]1. extract dataset2doc_name from existing xml data.
+[TODO]2. write xml from the db's documentation and annotation.
 
 
