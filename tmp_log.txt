@@ -10,4 +10,6 @@ TODAY:
 
 [TODO]3. combine the split annotations back to the original xml.
 
+doc_name level is not necessary for evaluation.
+
 
