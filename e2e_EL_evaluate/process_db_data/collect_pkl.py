@@ -6,11 +6,21 @@ import argparse
 
 from collections import defaultdict
 
+from e2e_EL_evaluate.utils.collect_dataset2doc_name import collect_dataset2doc_name, DATASET2DATASET_TYPES
+from e2e_EL_evaluate.utils.gen_anno_from_xml import gen_anno_from_xml
+from e2e_EL_evaluate.utils.write_xml import write_xml
+
 
 DBModel2XMLModel = {
     'GT': 'GT',
     'REL': 'rel',
     'E2E': 'end2end_neural_el',
+}
+
+XMLModel2DBModel = {
+    'GT': 'GT',
+    'rel': 'REL',
+    'end2end_neural_el': 'E2E',
 }
 
 """
@@ -362,6 +372,44 @@ def collect_doc_anno(doc_anno):
     return double2doc_anno, double2label_anno, double2label_txt
 
 
+def transform_fix_double2anno(double2anno, doc_name2dataset):
+    """
+    :param double2anno:
+    :param doc_name2dataset:
+    :return:
+    :param fix_double2anno
+    """
+
+    fix_double2anno = defaultdict(dict)
+    for double in double2anno:
+        model, doc_name = double
+
+        # **YD** transform to new the xml model name
+        assert model in DBModel2XMLModel
+        model = DBModel2XMLModel[model]
+        if doc_name not in doc_name2dataset:
+            print('doc_name', doc_name)
+            print(list(doc_name2dataset.keys())[:100])
+        assert doc_name in doc_name2dataset
+        dataset = doc_name2dataset[doc_name]
+        assert doc_name not in fix_double2anno[(model, dataset)]
+        fix_double2anno[(model, dataset)][doc_name] = double2anno[double]
+
+    return fix_double2anno
+
+
+def transform_doc_name2txt(doc_name2txt, doc_name2dataset):
+    dataset2txt = defaultdict(dict)
+    for doc_name in doc_name2txt:
+        assert doc_name in doc_name2dataset
+        dataset = doc_name2dataset[doc_name]
+        assert doc_name not in dataset2txt[dataset]
+
+        dataset2txt[dataset][doc_name] = doc_name2txt[doc_name]
+
+    return dataset2txt
+
+
 def main(args):
 
     assert os.path.isdir(args.input_dir)
@@ -411,8 +459,33 @@ def main(args):
     print(f'{num_un_matched_txt} / {len(double2label_txt)} are different txts!')
 
     # TODO: **YD** check2: combine the txt and anno in database to write a new version of "xml" database.
+
     # 1. extract the dataset2doc_name dictionary of list
+    dataset2doc_name, doc_name2dataset = collect_dataset2doc_name(args.source_xml_dir)
+
     # 2. write back to xml.
+    # Transform:
+    # double2anno (model, doc_name) ---> fix_double2anno (model, dataset)
+    # doc_name2txt (doc_name) ----> dataset2txt (doc_name)
+    # double2anno, doc_name2txt
+
+    fix_double2anno = transform_fix_double2anno(double2anno, doc_name2dataset)
+    dataset2txt = transform_doc_name2txt(doc_name2txt, doc_name2dataset)
+
+    for fix_double in fix_double2anno:
+        print('fix_double: ', 'model, dataset', fix_double)
+
+    for dataset in dataset2txt:
+        print('dataset', dataset)
+
+    for model in XMLModel2DBModel:
+        for dataset in dataset2txt:
+            assert dataset in DATASET2DATASET_TYPES
+            prefix = os.path.join(args.output_dir, model + '/' + DATASET2DATASET_TYPES[dataset])
+            tmp_doc_name2txt = dataset2txt[dataset]
+            tmp_doc_name2anno = fix_double2anno[(model, dataset)] if (model, dataset) in fix_double2anno else {}
+            write_xml(prefix, dataset, tmp_doc_name2txt, tmp_doc_name2anno)
+
 
 
 if __name__ == "__main__":
@@ -427,5 +500,22 @@ if __name__ == "__main__":
         help='Specify the splits output directory for the db download file',
     )
 
+    parser.add_argument(
+        '--source_xml_dir',
+        type=str,
+        default='/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/EL',
+        help='Specify the splits output directory for the db download file',
+    )
+
+    parser.add_argument(
+        '--output_dir',
+        type=str,
+        default='/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/collect_pkl_EL',
+        help='Specify the splits output directory for the output xml directory from DB process results',
+    )
+
     args = parser.parse_args()
+    assert os.path.isdir(args.input_dir)
+    assert os.path.isdir(args.source_xml_dir)
+    os.makedirs(args.output_dir)
     main(args)
