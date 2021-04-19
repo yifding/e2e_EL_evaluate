@@ -478,14 +478,37 @@ def main(args):
     for dataset in dataset2txt:
         print('dataset', dataset)
 
+    # 2. Write back to xml. finish up the writing up tasks.
     for model in XMLModel2DBModel:
         for dataset in dataset2txt:
             assert dataset in DATASET2DATASET_TYPES
-            prefix = os.path.join(args.output_dir, model + '/' + DATASET2DATASET_TYPES[dataset])
+            prefix = os.path.join(args.rewrite_xml_output_dir, model + '/' + DATASET2DATASET_TYPES[dataset])
             tmp_doc_name2txt = dataset2txt[dataset]
             tmp_doc_name2anno = fix_double2anno[(model, dataset)] if (model, dataset) in fix_double2anno else {}
             write_xml(prefix, dataset, tmp_doc_name2txt, tmp_doc_name2anno)
 
+
+    # double2label_anno, double2label_txt
+    # 3. write the annotated anno and txt to xml format
+    fix_double2label_anno = transform_fix_double2anno(double2label_anno, doc_name2dataset)
+    dataset2label_txt = transform_doc_name2txt(double2label_txt, doc_name2dataset)
+
+    for fix_double in fix_double2label_anno:
+        model, dataset = fix_double
+        assert dataset in DATASET2DATASET_TYPES
+
+        prefix = os.path.join(args.label_xml_output_dir, model + '/' + DATASET2DATASET_TYPES[dataset])
+        tmp_doc_name2txt = dataset2label_txt[dataset]
+        tmp_doc_name2anno = fix_double2label_anno[(model, dataset)]
+        write_xml(prefix, dataset, tmp_doc_name2txt, tmp_doc_name2anno)
+
+    for model in XMLModel2DBModel:
+        for dataset in dataset2label_txt:
+            if (model, dataset) not in fix_double2label_anno:
+                prefix = os.path.join(args.label_xml_output_dir, model + '/' + DATASET2DATASET_TYPES[dataset])
+                tmp_doc_name2txt = dataset2label_txt[dataset]
+                tmp_doc_name2anno = {}
+                write_xml(prefix, dataset, tmp_doc_name2txt, tmp_doc_name2anno)
 
 
 if __name__ == "__main__":
@@ -508,7 +531,14 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        '--output_dir',
+        '--rewrite_xml_output_dir',
+        type=str,
+        default='/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/collect_pkl_EL',
+        help='Specify the splits output directory for the output xml directory from DB process results',
+    )
+
+    parser.add_argument(
+        '--label_xml_output_dir',
         type=str,
         default='/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/collect_pkl_EL',
         help='Specify the splits output directory for the output xml directory from DB process results',
@@ -517,5 +547,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     assert os.path.isdir(args.input_dir)
     assert os.path.isdir(args.source_xml_dir)
-    os.makedirs(args.output_dir)
+    os.makedirs(args.rewrite_xml_output_dir, exist_ok=True)
+    os.makedirs(args.label_xml_output_dir, exist_ok=True)
     main(args)
