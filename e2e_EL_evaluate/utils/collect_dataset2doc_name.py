@@ -68,6 +68,18 @@ DATASET_TYPES2DATASET = {
     'wned': ['ace2004', 'aquaint', 'clueweb', 'msnbc', 'wikipedia'],
 }
 
+DATASET2DATASET_TYPES = {
+    'aida_testa': 'aida',
+    'aida_testb': 'aida',
+    'aida_train': 'aida',
+
+    'ace2004': 'wned',
+    'aquaint': 'wned',
+    'clueweb': 'wned',
+    'msnbc': 'wned',
+    'wikipedia': 'wned',
+}
+
 
 def collect_dataset2doc_name(input_dir):
     model_name2dataset2doc_name = dict()
