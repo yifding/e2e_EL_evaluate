@@ -401,6 +401,8 @@ def transform_fix_double2anno(double2anno, doc_name2dataset):
 def transform_doc_name2txt(doc_name2txt, doc_name2dataset):
     dataset2txt = defaultdict(dict)
     for doc_name in doc_name2txt:
+        if doc_name not in doc_name2dataset:
+            print('doc_name', doc_name)
         assert doc_name in doc_name2dataset
         dataset = doc_name2dataset[doc_name]
         assert doc_name not in dataset2txt[dataset]
@@ -408,6 +410,22 @@ def transform_doc_name2txt(doc_name2txt, doc_name2dataset):
         dataset2txt[dataset][doc_name] = doc_name2txt[doc_name]
 
     return dataset2txt
+
+
+def transform_fix_double2txt(double2txt, doc_name2dataset):
+    fix_double2txt = defaultdict(dict)
+    for double in double2txt:
+        model, doc_name = double
+        # **YD** transform to new the xml model name
+        assert model in DBModel2XMLModel
+        model = DBModel2XMLModel[model]
+        assert doc_name in doc_name2dataset
+        dataset = doc_name2dataset[doc_name]
+
+        assert doc_name not in fix_double2txt[(model, dataset)]
+        fix_double2txt[(model, dataset)][doc_name] = double2txt[double]
+
+    return fix_double2txt
 
 
 def main(args):
@@ -478,6 +496,7 @@ def main(args):
     for dataset in dataset2txt:
         print('dataset', dataset)
 
+
     # 2. Write back to xml. finish up the writing up tasks.
     for model in XMLModel2DBModel:
         for dataset in dataset2txt:
@@ -487,28 +506,20 @@ def main(args):
             tmp_doc_name2anno = fix_double2anno[(model, dataset)] if (model, dataset) in fix_double2anno else {}
             write_xml(prefix, dataset, tmp_doc_name2txt, tmp_doc_name2anno)
 
-
     # double2label_anno, double2label_txt
     # 3. write the annotated anno and txt to xml format
     fix_double2label_anno = transform_fix_double2anno(double2label_anno, doc_name2dataset)
-    dataset2label_txt = transform_doc_name2txt(double2label_txt, doc_name2dataset)
+    fix_double2label_txt = transform_fix_double2txt(double2label_txt, doc_name2dataset)
 
-    for fix_double in fix_double2label_anno:
+    for fix_double in fix_double2label_txt:
         model, dataset = fix_double
         assert dataset in DATASET2DATASET_TYPES
+        assert model in XMLModel2DBModel
 
         prefix = os.path.join(args.label_xml_output_dir, model + '/' + DATASET2DATASET_TYPES[dataset])
-        tmp_doc_name2txt = dataset2label_txt[dataset]
-        tmp_doc_name2anno = fix_double2label_anno[(model, dataset)]
+        tmp_doc_name2txt = fix_double2label_txt[(model, dataset)]
+        tmp_doc_name2anno = fix_double2label_anno[(model, dataset)] if (model, dataset) in fix_double2label_anno else {}
         write_xml(prefix, dataset, tmp_doc_name2txt, tmp_doc_name2anno)
-
-    for model in XMLModel2DBModel:
-        for dataset in dataset2label_txt:
-            if (model, dataset) not in fix_double2label_anno:
-                prefix = os.path.join(args.label_xml_output_dir, model + '/' + DATASET2DATASET_TYPES[dataset])
-                tmp_doc_name2txt = dataset2label_txt[dataset]
-                tmp_doc_name2anno = {}
-                write_xml(prefix, dataset, tmp_doc_name2txt, tmp_doc_name2anno)
 
 
 if __name__ == "__main__":
@@ -533,14 +544,14 @@ if __name__ == "__main__":
     parser.add_argument(
         '--rewrite_xml_output_dir',
         type=str,
-        default='/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/collect_pkl_EL',
+        default='/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/collect_pkl_rewrite_xml_EL',
         help='Specify the splits output directory for the output xml directory from DB process results',
     )
 
     parser.add_argument(
         '--label_xml_output_dir',
         type=str,
-        default='/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/collect_pkl_EL',
+        default='/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/label_xml_EL',
         help='Specify the splits output directory for the output xml directory from DB process results',
     )
 
