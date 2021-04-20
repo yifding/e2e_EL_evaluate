@@ -1,11 +1,12 @@
 import os
 import argparse
 
+from e2e_EL_evaluate.utils.collect_dataset2doc_name import DATASET2DATASET_TYPES
 from e2e_EL_evaluate.evaluation.confusion_matrix_from_xml import ConfusionMatrix, confusion_matrix_from_xml
 from e2e_EL_evaluate.utils.extract_subset_xml import extract_subset_xml
 
 
-def main(args):
+def eva_metrics_from_two_xml(args):
     subset_doc_name2txt, subset_doc_name2anno, full_new_doc_name2anno = extract_subset_xml(
         args.subset_xml_dir,
         args.subset_dataset,
@@ -13,25 +14,54 @@ def main(args):
         args.full_dataset
     )
 
+    """
     if len(subset_doc_name2txt) > 0:
         print('num_doc', len(subset_doc_name2txt))
         print('len_subset_doc_name2anno', sum(len(value) for value in subset_doc_name2anno.values()))
         print('len_full_doc_name2anno', sum(len(value) for value in full_new_doc_name2anno.values()))
+    """
+    confusion_matrix = confusion_matrix_from_xml(
+        subset_doc_name2txt,
+        subset_doc_name2anno,
+        full_new_doc_name2anno,
+    )
 
-        confusion_matrix = confusion_matrix_from_xml(
-            subset_doc_name2txt,
-            subset_doc_name2anno,
-            full_new_doc_name2anno,
-        )
+    print('TP', confusion_matrix.TP)
+    print('FP', confusion_matrix.FP)
+    print('TN', confusion_matrix.TN)
+    print('FN', confusion_matrix.FN)
 
-        print('TP', confusion_matrix.TP)
-        print('FP', confusion_matrix.FP)
-        print('TN', confusion_matrix.TN)
-        print('FN', confusion_matrix.FN)
-
+    num_subset_anno = sum(len(value) for value in subset_doc_name2anno.values())
+    num_full_anno = sum(len(value) for value in full_new_doc_name2anno.values())
+    if num_subset_anno > 0 and num_full_anno > 0:
         print('precision', confusion_matrix.precision)
         print('recall', confusion_matrix.recall)
         print('F1', confusion_matrix.F1)
+
+    return confusion_matrix
+
+
+def main(args):
+
+    TP = FP = TN = FN = 0
+    for dataset in ['ace2004', 'aquaint', 'clueweb', 'msnbc', 'wikipedia', 'aida_testa', 'aida_testb', 'aida_train']:
+        assert dataset in DATASET2DATASET_TYPES
+
+        args.subset_xml_dir = '/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/label_xml_EL/GT/' \
+                              + DATASET2DATASET_TYPES[dataset]
+
+        args.full_xml_dir = '/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/collect_pkl_rewrite_xml_EL/GT/' \
+                            + DATASET2DATASET_TYPES[dataset]
+
+        args.subset_dataset = args.full_dataset = dataset
+        confusion_matrix = eva_metrics_from_two_xml(args)
+
+        TP += confusion_matrix.TP
+        FP += confusion_matrix.FP
+        TN += confusion_matrix.TN
+        FN += confusion_matrix.FN
+
+    total_confusion_matrix = ConfusionMatrix(TP, TN, FP, FN)
 
 
 if __name__ == '__main__':
