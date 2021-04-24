@@ -1,5 +1,6 @@
 import os
 import re
+import copy
 import html
 import pickle
 import argparse
@@ -359,11 +360,20 @@ def collect_doc_anno(doc_anno):
     double2label_txt = dict()
     double2doc_anno = dict()
 
-    for (doc_id, user_id, model_enum, entire_text) in doc_anno:
+    # print('length', len(doc_anno[0]), doc_anno[0])
+    for (doc_id, user_id, model_enum, entire_text, _) in doc_anno:
         txt, anno_list = process_entire_txt(entire_text)
-        assert (model_enum, doc_id) not in double2doc_anno
-        assert (model_enum, doc_id) not in double2label_anno
-        assert (model_enum, doc_id) not in double2label_txt
+
+        """
+        if (model_enum, doc_id) in double2doc_anno:
+            print(double2doc_anno[(model_enum, doc_id)])
+            print(entire_text)
+            print(double2doc_anno[(model_enum, doc_id)] == entire_text)
+        """
+
+        assert (model_enum, doc_id) not in double2doc_anno or double2doc_anno[(model_enum, doc_id)] == entire_text
+        assert (model_enum, doc_id) not in double2label_anno or double2label_anno[(model_enum, doc_id)] == anno_list
+        assert (model_enum, doc_id) not in double2label_txt or double2label_txt[(model_enum, doc_id)] == txt
 
         double2doc_anno[(model_enum, doc_id)] = entire_text
         double2label_anno[(model_enum, doc_id)] = anno_list
@@ -457,6 +467,11 @@ def main(args):
     print('DBModels', model_set)
 
     # **YD** Check 1: in double2label_txt, all the txts are equal to the doc_name2txt
+    # only preserve the same documents
+    tmp_double2doc_anno = copy.deepcopy(double2doc_anno)
+    tmp_double2label_anno = copy.deepcopy(double2label_anno)
+    tmp_double2label_txt = copy.deepcopy(double2label_txt)
+
     num_un_matched_txt = 0
     for double in double2label_txt:
         model, doc_name = double
@@ -474,7 +489,19 @@ def main(args):
             print(repr(txt))
             num_un_matched_txt += 1
 
+            if double in tmp_double2doc_anno:
+                del tmp_double2doc_anno[double]
+            if double in tmp_double2label_anno:
+                del tmp_double2label_anno[double]
+            if double in tmp_double2label_txt:
+                del tmp_double2label_txt[double]
+
+
     print(f'{num_un_matched_txt} / {len(double2label_txt)} are different txts!')
+
+    double2doc_anno = tmp_double2doc_anno
+    double2label_anno = tmp_double2label_anno
+    double2label_txt = tmp_double2label_txt
 
     # TODO: **YD** check2: combine the txt and anno in database to write a new version of "xml" database.
 
