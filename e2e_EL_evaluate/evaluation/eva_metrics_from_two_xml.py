@@ -44,24 +44,34 @@ def eva_metrics_from_two_xml(args):
 def main(args):
 
     TP = FP = TN = FN = 0
-    for dataset in ['ace2004', 'aquaint', 'clueweb', 'msnbc', 'wikipedia', 'aida_testa', 'aida_testb', 'aida_train']:
-        assert dataset in DATASET2DATASET_TYPES
+    for split in ['accept', 'reject']:
+        # for model in ['GT', 'rel', 'end2end_neural_el']:
+        for model in ['end2end_neural_el']:
+            for dataset in ['ace2004', 'aquaint', 'clueweb', 'msnbc', 'wikipedia', 'aida_testa', 'aida_testb', 'aida_train']:
+                assert dataset in DATASET2DATASET_TYPES
 
-        args.subset_xml_dir = '/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/label_xml_EL/GT/' \
-                              + DATASET2DATASET_TYPES[dataset]
+                args.subset_xml_dir = '/scratch365/yding4/e2e_EL_evaluate/data/4_23_2021/label_xml/'\
+                                      + split + '/' + model + '/' + DATASET2DATASET_TYPES[dataset]
 
-        args.full_xml_dir = '/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/collect_pkl_rewrite_xml_EL/GT/' \
-                            + DATASET2DATASET_TYPES[dataset]
+                args.full_xml_dir = '/scratch365/yding4/e2e_EL_evaluate/data/4_23_2021/rewrite_xml/' \
+                                    + split + '/' + model + '/' + DATASET2DATASET_TYPES[dataset]
 
-        args.subset_dataset = args.full_dataset = dataset
-        confusion_matrix = eva_metrics_from_two_xml(args)
+                dataset_path = os.path.join(args.subset_xml_dir, dataset)
+                if os.path.isdir(dataset_path):
+                    print('args.subset_xml_dir', args.subset_xml_dir)
+                    args.subset_dataset = args.full_dataset = dataset
+                    confusion_matrix = eva_metrics_from_two_xml(args)
 
-        TP += confusion_matrix.TP
-        FP += confusion_matrix.FP
-        TN += confusion_matrix.TN
-        FN += confusion_matrix.FN
+                    TP += confusion_matrix.TP
+                    FP += confusion_matrix.FP
+                    TN += confusion_matrix.TN
+                    FN += confusion_matrix.FN
 
-    total_confusion_matrix = ConfusionMatrix(TP, TN, FP, FN)
+    confusion_matrix = ConfusionMatrix(TP, TN, FP, FN)
+    print('TP', confusion_matrix.TP)
+    print('FP', confusion_matrix.FP)
+    print('TN', confusion_matrix.TN)
+    print('FN', confusion_matrix.FN)
 
 
 if __name__ == '__main__':
@@ -101,3 +111,4 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     main(args)
+    #eva_metrics_from_two_xml(args)
