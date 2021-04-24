@@ -26,7 +26,11 @@ class ConfusionMatrix(object):
 
     @property
     def F1(self):
-        return 2 * self.recall * self.precision / (self.recall + self.precision)
+        if not self.recall == 0 and self.precision == 0:
+            return 2 * self.recall * self.precision / (self.recall + self.precision)
+        else:
+            print('recall and precision are both 0!')
+            return 0
 
 
 def confusion_matrix_from_xml(doc_name2txt, model_doc_name2anno, GT_doc_name2anno):
