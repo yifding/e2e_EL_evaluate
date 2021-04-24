@@ -88,7 +88,7 @@ class DataBaseQueryUtil:
         result = self.mycursor.fetchall()
         return result
 
-    @ property
+    @property
     def query_doc_anno(self):
         return f"select * from document_annotation;"
 
@@ -100,8 +100,15 @@ class DataBaseQueryUtil:
     def query_ori_anno(self):
         return f"select * from annotations;"
 
-    @ property
+    @property
     def query_doc_model_pair(self):
         return f"select * from combinations_completed;"
 
+    @property
+    def query_accept_user_doc_anno(self):
+        return f"select * from document_annotation where user_id in (select user_id from user_information where (control_passed = 1 and result_code is not NULL));"
+
+    @property
+    def query_reject_user_doc_anno(self):
+        return f"select * from document_annotation where user_id in (select user_id from user_information where (control_passed = 0 and result_code is not NULL));"
 
