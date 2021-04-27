@@ -30,7 +30,8 @@ def collect_model_doc_name_pair(args):
     pickle.dump(model_doc_pair, open(output_file, "wb"))
 
     print('number of total documents is: ', num_total, 'number of documents without annotation is: ', len(model_doc_pair))
-    print(model_doc_pair)
+    # print(model_doc_pair)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
