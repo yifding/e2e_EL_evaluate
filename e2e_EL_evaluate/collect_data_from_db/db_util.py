@@ -105,6 +105,14 @@ class DataBaseQueryUtil:
         return f"select * from combinations_completed;"
 
     @property
+    def query_ori_verified_anno(self):
+        return f"select * from verified_annotations;"
+
+    @property
+    def query_valid_verified_anno(self):
+        return f"select * from verified_annotations where user_id in (select user_id from user_information where (control_passed = 1 and result_code is not NULL));"
+
+    @property
     def query_accept_user_doc_anno(self):
         return f"select * from document_annotation where user_id in (select user_id from user_information where (control_passed = 1 and result_code is not NULL));"
 

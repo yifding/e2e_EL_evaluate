@@ -19,6 +19,10 @@ def main(args):
     ori_anno_file = os.path.join(args.output_dir, 'ori_anno.pkl')
     doc_model_pair_file = os.path.join(args.output_dir, 'doc_model_pair.pkl')
 
+    # **YD** start new process pipeline with "valid_verified_annotations"
+    ori_verified_anno_file = os.path.join(args.output_dir, 'ori_verified_anno.pkl')
+    valid_verified_anno_file = os.path.join(args.output_dir, 'valid_verified_anno.pkl')
+
     db_util = DataBaseQueryUtil()
 
     doc_anno = db_util.fetch(db_util.query_doc_anno)
@@ -26,10 +30,18 @@ def main(args):
     ori_anno = db_util.fetch(db_util.query_ori_anno)
     doc_model_pair = db_util.fetch(db_util.query_doc_model_pair)
 
+    # **YD** start new process pipeline with "valid_verified_annotations"
+    ori_verified_anno = db_util.fetch(db_util.query_ori_verified_anno)
+    valid_verified_anno = db_util.fetch(db_util.query_valid_verified_anno)
+
     pickle.dump(doc_anno, open(doc_anno_file, "wb"))
     pickle.dump(ori_doc, open(ori_doc_file, "wb"))
     pickle.dump(ori_anno, open(ori_anno_file, "wb"))
     pickle.dump(doc_model_pair, open(doc_model_pair_file, "wb"))
+
+    # **YD** start new process pipeline with "valid_verified_annotations"
+    pickle.dump(ori_verified_anno, open(ori_verified_anno_file, "wb"))
+    pickle.dump(valid_verified_anno, open(valid_verified_anno_file, "wb"))
 
 
 if __name__ == "__main__":
