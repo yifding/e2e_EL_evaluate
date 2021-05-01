@@ -38,7 +38,7 @@ def main(args):
     pickle.dump(ori_doc, open(ori_doc_file, "wb"))
     pickle.dump(ori_anno, open(ori_anno_file, "wb"))
     pickle.dump(doc_model_pair, open(doc_model_pair_file, "wb"))
-    
+
     # **YD** start new process pipeline with "valid_verified_annotations"
     pickle.dump(ori_verified_anno, open(ori_verified_anno_file, "wb"))
     pickle.dump(valid_verified_anno, open(valid_verified_anno_file, "wb"))
