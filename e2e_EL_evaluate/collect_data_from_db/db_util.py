@@ -21,7 +21,7 @@ class DataBaseQueryUtil:
     | verified_annotations             |
     +----------------------------------+
 
-    annotations: original annotations.
+
 
     mysql> describe annotations; original annotations;
     +-------------+--------------+------+-----+---------+----------------+
@@ -35,6 +35,7 @@ class DataBaseQueryUtil:
     | start_pos   | int(11)      | YES  |     | NULL    |                |
     | end_pos     | int(11)      | YES  |     | NULL    |                |
     +-------------+--------------+------+-----+---------+----------------+
+    7 rows in set (0.00 sec)
 
 
     mysql> describe document; original documents (should not be changed in the whole process);
@@ -44,16 +45,21 @@ class DataBaseQueryUtil:
     | doc_id   | varchar(300)   | NO   | PRI | NULL    |       |
     | doc_body | varchar(15000) | YES  |     | NULL    |       |
     +----------+----------------+------+-----+---------+-------+
+    2 rows in set (0.00 sec)
 
 
     mysql> describe document_annotation; annotated results; should perform post-processing to get standard format.
-    +-------------+----------------+------+-----+---------+-------+
-    | Field       | Type           | Null | Key | Default | Extra |
-    +-------------+----------------+------+-----+---------+-------+
-    | doc_id      | varchar(300)   | NO   | PRI | NULL    |       |
-    | model_enum  | varchar(300)   | YES  |     | NULL    |       |
-    | entire_text | varchar(15000) | YES  |     | NULL    |       |
-    +-------------+----------------+------+-----+---------+-------+
+    +-------------+----------------+------+-----+---------+----------------+
+    | Field       | Type           | Null | Key | Default | Extra          |
+    +-------------+----------------+------+-----+---------+----------------+
+    | doc_id      | varchar(300)   | NO   |     | NULL    |                |
+    | user_id     | varchar(200)   | YES  |     | NULL    |                |
+    | model_enum  | varchar(300)   | YES  |     | NULL    |                |
+    | entire_text | varchar(15000) | YES  |     | NULL    |                |
+    | id          | int(11)        | NO   | PRI | NULL    | auto_increment |
+    +-------------+----------------+------+-----+---------+----------------+
+    5 rows in set (0.00 sec)
+
 
     mysql> describe combinations_completed; document_id-model pair;
     +-------------+--------------+------+-----+---------+----------------+
@@ -65,6 +71,23 @@ class DataBaseQueryUtil:
     | checked_out | tinyint(1)   | YES  |     | 0       |                |
     | completed   | tinyint(1)   | YES  |     | 0       |                |
     +-------------+--------------+------+-----+---------+----------------+
+    5 rows in set (0.00 sec)
+
+
+    mysql> describe verified_annotations;
+    +-----------------+------------------+------+-----+---------+----------------+
+    | Field           | Type             | Null | Key | Default | Extra          |
+    +-----------------+------------------+------+-----+---------+----------------+
+    | id              | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+    | document_id     | varchar(300)     | YES  |     | NULL    |                |
+    | user_id         | varchar(200)     | YES  |     | NULL    |                |
+    | model_enum      | varchar(200)     | YES  |     | NULL    |                |
+    | annotation_id   | int(11)          | YES  |     | NULL    |                |
+    | verified        | tinyint(1)       | YES  |     | NULL    |                |
+    | mention         | varchar(200)     | YES  |     | NULL    |                |
+    | modified_entity | varchar(200)     | YES  |     | NULL    |                |
+    +-----------------+------------------+------+-----+---------+----------------+
+    8 rows in set (0.00 sec)
 
     """
 
