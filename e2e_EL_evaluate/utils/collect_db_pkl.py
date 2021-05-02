@@ -7,7 +7,9 @@ def process_wiki_url(url):
     if url == '':
         return ''
     else:
-        assert url.startswith(pre)
+        if not url.startswith(pre):
+            print('Wrong input wikipedia url: ', url)
+            return ''
         url = url[len(pre):]
         url = unquote(url).replace('_', ' ')
     return url
@@ -128,6 +130,8 @@ def collect_anno_id2anno_from_anno(ori_anno):
             'end': end_pos,
             'mention_txt': mention,
             'entity_txt': entity,
+            # **YD** model_enum also needs to be assign
+            'model_enum': model_enum,
         }
 
     return anno_id2anno
@@ -167,7 +171,7 @@ def collect_double2anno_from_verified_anno_and_anno_id2anno_from_anno(verified_a
     print('collecting verified annotations from DB list.')
     print(len(verified_anno), ' total annotations are collected, may include repeated annotations')
     double2anno = defaultdict(list)
-    for (id, document_id, user_id, model_enum, annotation_id, verified, mention, modified_entity) \
+    for (id, document_id, user_id, fake_model_enum, annotation_id, verified, mention, modified_entity) \
         in verified_anno:
         assert annotation_id in anno_id2anno
         anno = anno_id2anno[annotation_id]
@@ -177,6 +181,9 @@ def collect_double2anno_from_verified_anno_and_anno_id2anno_from_anno(verified_a
         assert mention == anno['mention_txt']
         start_pos = anno['start']
         end_pos = anno['end']
+
+        # **YD** the model_enum should come from the "anno_id2anno"
+        model_enum = anno['model_enum']
 
         add_verified_anno = {
             'start': start_pos,
