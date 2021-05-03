@@ -110,6 +110,7 @@ def main(args):
     # 5. CHECK: fix_double2anno_from_verified has the same number of annotations in each doc as fix_double2anno.
     num_total_docs = 0
     num_remove_docs = 0
+    num_anno = 0
     for index, fix_double in enumerate(fix_double2anno_from_verified):
         tmp_anno_from_verified = fix_double2anno_from_verified[fix_double]
         assert fix_double in fix_double2anno
@@ -127,11 +128,12 @@ def main(args):
                 # print('tmp_anno_from_verified[doc_name]', tmp_anno_from_verified[doc_name])
                 # print('tmp_anno[doc_name]', tmp_anno[doc_name])
                 # raise ValueError('different length of annotaitons', len(tmp_anno_from_verified[doc_name]), len(tmp_anno[doc_name]))
-
+            else:
+                num_anno += len(tmp_anno_from_verified[doc_name])
         for tmp_key in delete_key_list:
             del fix_double2anno_from_verified[fix_double][tmp_key]
 
-    print('num_total_docs', num_total_docs, 'num_remove_docs', num_remove_docs)
+    print('num_total_docs', num_total_docs, 'num_remove_docs', num_remove_docs, 'num_anno', num_anno)
     # raise ValueError('by intention!')
 
     # 6. write "ori_doc" and "ori_anno" back to xml.
