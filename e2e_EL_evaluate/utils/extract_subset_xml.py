@@ -13,7 +13,7 @@ def extract_subset_xml(subset_xml_dir, subset_dataset, full_xml_dir, full_datase
     :return:
     """
     assert subset_dataset == full_dataset
-    subset_doc_name2txt, subset_doc_name2anno = gen_anno_from_xml(subset_xml_dir, subset_dataset)
+    subset_doc_name2txt, subset_doc_name2anno = gen_anno_from_xml(subset_xml_dir, subset_dataset, allow_mention_without_entity=True)
     full_doc_name2txt, full_doc_name2anno = gen_anno_from_xml(full_xml_dir, full_dataset)
 
     # make sure the all doc_name exists in subset_doc_name2txt also in full_doc_name2txt
