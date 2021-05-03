@@ -173,12 +173,18 @@ def collect_double2anno_from_verified_anno_and_anno_id2anno_from_anno(verified_a
     double2anno = defaultdict(list)
     for (id, document_id, user_id, fake_model_enum, annotation_id, verified, mention, modified_entity) \
         in verified_anno:
+
+        if document_id == 'control':
+            continue
         assert annotation_id in anno_id2anno
         anno = anno_id2anno[annotation_id]
 
         modified_entity = process_wiki_url(modified_entity)
 
-        assert mention == anno['mention_txt']
+        if not mention == anno['mention_txt']:
+            print('document_id', document_id, 'fake_model_enum', fake_model_enum)
+            raise ValueError('mention', mention, 'modified_entity', modified_entity, 'mention_txt', anno['mention_txt'])
+
         start_pos = anno['start']
         end_pos = anno['end']
 
