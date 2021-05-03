@@ -92,7 +92,7 @@ if __name__ == '__main__':
         '--models',
         type=eval,
         default="['GT','rel','end2end_neural_el']",
-        help='dataset for EL',
+        help='models for EL',
     )
 
     parser.add_argument(
