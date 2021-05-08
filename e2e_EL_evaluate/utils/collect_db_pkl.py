@@ -7,6 +7,9 @@ def process_wiki_url(url):
     if url == '':
         return ''
     else:
+        url = url.lstrip()
+        if url.startswith('en.wikipedia.org/wiki/'):
+            url = 'https://' + url
         if not url.startswith(pre):
             print('Wrong input wikipedia url: ', url)
             return ''
