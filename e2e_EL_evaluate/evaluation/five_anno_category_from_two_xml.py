@@ -10,7 +10,7 @@ class AnnoFiveCategory(object):
         self.c4 = c4
         self.c5 = c5
 
-        
+
 def main(args):
     pass
 
