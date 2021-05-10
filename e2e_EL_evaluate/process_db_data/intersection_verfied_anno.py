@@ -47,6 +47,7 @@ def main(args):
     # 2. For each (model, dataset) pair,
     # 2-a. extract “doc_name2txt, doc_name2anno” for each (model, dataset) pair.
     # 2-b. Only select the doc_name within the intersection.
+    # 3. For each (model, dataset) pair, given any “doc_name2txt, doc_name2anno”, find the corresponding subset
     for model in model_name2dataset2doc_name:
         for dataset in model_name2dataset2doc_name[model]:
             print('model: ', model, ' dataset: ', dataset)
