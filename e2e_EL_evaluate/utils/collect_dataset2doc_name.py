@@ -1,6 +1,14 @@
 import os
 from collections import defaultdict
 
+from e2e_EL_evaluate.utils.constants import (
+    MODEL_NAMES,
+    DATASET_TYPES,
+    DATASET_TYPES2DATASET,
+    DATASET2DATASET_TYPES,
+)
+
+
 """
 this function aims to extract dataset2doc_name from the standard xml EL layouts.
 
@@ -53,14 +61,6 @@ Layout example:
 """
 
 
-from constants import (
-    MODEL_NAMES,
-    DATASET_TYPES,
-    DATASET_TYPES2DATASET,
-    DATASET2DATASET_TYPES,
-)
-
-
 def collect_dataset2doc_name(input_dir, identical=True):
     model_name2dataset2doc_name = dict()
     model_name2doc_name2dataset = dict()
@@ -97,7 +97,10 @@ def collect_dataset2doc_name(input_dir, identical=True):
                 assert model_name2dataset2doc_name[model_name1] == model_name2dataset2doc_name[model_name2]
                 assert model_name2doc_name2dataset[model_name1] == model_name2doc_name2dataset[model_name2]
 
-    return model_name2dataset2doc_name[MODEL_NAMES[0]], model_name2doc_name2dataset[MODEL_NAMES[0]]
+        return model_name2dataset2doc_name[MODEL_NAMES[0]], model_name2doc_name2dataset[MODEL_NAMES[0]]
+
+    else:
+        return model_name2dataset2doc_name, model_name2doc_name2dataset
 
 
 if __name__ == '__main__':
