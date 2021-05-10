@@ -1,7 +1,7 @@
 import os
 import argparse
 
-from e2e_EL_evaluate.utils.collect_dataset2doc_name import DATASET2DATASET_TYPES
+from e2e_EL_evaluate.utils.constants import DATASET2DATASET_TYPES
 from e2e_EL_evaluate.evaluation.edit_entity_from_xml import EditEntityCount, edit_entity_from_xml
 from e2e_EL_evaluate.utils.extract_subset_xml import extract_subset_xml
 
