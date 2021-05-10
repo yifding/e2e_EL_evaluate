@@ -52,36 +52,16 @@ Layout example:
                     |---APW19980930_0522.htm-438_843
 """
 
-MODEL_NAMES = [
-    'GT',
-    'rel',
-    'end2end_neural_el',
-]
 
-DATASET_TYPES = [
-    'aida',
-    'wned',
-]
-
-DATASET_TYPES2DATASET = {
-    'aida': ['aida_testa', 'aida_testb', 'aida_train'],
-    'wned': ['ace2004', 'aquaint', 'clueweb', 'msnbc', 'wikipedia'],
-}
-
-DATASET2DATASET_TYPES = {
-    'aida_testa': 'aida',
-    'aida_testb': 'aida',
-    'aida_train': 'aida',
-
-    'ace2004': 'wned',
-    'aquaint': 'wned',
-    'clueweb': 'wned',
-    'msnbc': 'wned',
-    'wikipedia': 'wned',
-}
+from constants import (
+    MODEL_NAMES,
+    DATASET_TYPES,
+    DATASET_TYPES2DATASET,
+    DATASET2DATASET_TYPES,
+)
 
 
-def collect_dataset2doc_name(input_dir):
+def collect_dataset2doc_name(input_dir, identical=True):
     model_name2dataset2doc_name = dict()
     model_name2doc_name2dataset = dict()
 
@@ -109,17 +89,20 @@ def collect_dataset2doc_name(input_dir):
         model_name2dataset2doc_name[model_name] = dataset2doc_name
         model_name2doc_name2dataset[model_name] = doc_name2dataset
 
-    for i in range(len(MODEL_NAMES) - 1):
-        model_name1 = MODEL_NAMES[i]
-        for j in range(i + 1, len(MODEL_NAMES)):
-            model_name2 = MODEL_NAMES[j]
+    if identical:
+        for i in range(len(MODEL_NAMES) - 1):
+            model_name1 = MODEL_NAMES[i]
+            for j in range(i + 1, len(MODEL_NAMES)):
+                model_name2 = MODEL_NAMES[j]
 
-            assert model_name2dataset2doc_name[model_name1] == model_name2dataset2doc_name[model_name2]
-            assert model_name2doc_name2dataset[model_name1] == model_name2doc_name2dataset[model_name2]
+                assert model_name2dataset2doc_name[model_name1] == model_name2dataset2doc_name[model_name2]
+                assert model_name2doc_name2dataset[model_name1] == model_name2doc_name2dataset[model_name2]
 
     return model_name2dataset2doc_name[MODEL_NAMES[0]], model_name2doc_name2dataset[MODEL_NAMES[0]]
 
 
 if __name__ == '__main__':
-    input_dir = '/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/sample_docs/max_num_docs-1000'
-    collect_dataset2doc_name(input_dir)
+    input_dir = '/scratch365/yding4/e2e_EL_evaluate/data/5_8_2021_analysis/collect_pkl_rewrite_xml_EL'
+    collect_dataset2doc_name(input_dir, identical=True)
+    input_dir = '/scratch365/yding4/e2e_EL_evaluate/data/5_8_2021_analysis/label_xml_EL'
+    collect_dataset2doc_name(input_dir, identical=False)
