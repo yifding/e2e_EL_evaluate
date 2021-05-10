@@ -65,7 +65,6 @@ def collect_dataset2doc_name(input_dir, identical=True):
     model_name2dataset2doc_name = dict()
     model_name2doc_name2dataset = dict()
 
-    #input_dir = '/scratch365/yding4/e2e_EL_evaluate/data/prepare_split/max_num_docs-1000'
     for model_name in MODEL_NAMES:
 
         dataset2doc_name = defaultdict(set)
