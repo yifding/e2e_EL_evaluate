@@ -27,6 +27,7 @@ def main(args):
 
     # 2. obtain the model annotations.
     for xml_model in XMLModel2DBModel:
+        print('model', xml_model)
         model_xml_dir = os.path.join(args.model_xml_dir, xml_model + '/' + dataset_type)
         model_doc_name2txt, model_doc_name2anno = gen_anno_from_xml(model_xml_dir, args.dataset)
 
