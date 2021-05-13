@@ -1,0 +1,43 @@
+dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/wned/ace2004
+args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/wned
+num_ner_anno 8 num_el_anno 917 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1352 num_shift_anno 0 num_change_length 0
+FLAG_EQUAL_TXT:  False
+dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/wned/aquaint
+args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/wned
+num_ner_anno 6 num_el_anno 573 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 810 num_shift_anno 0 num_change_length 0
+FLAG_EQUAL_TXT:  False
+dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/wned/clueweb
+args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/wned
+num_ner_anno 135 num_el_anno 8261 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 12247 num_shift_anno 0 num_change_length 0
+FLAG_EQUAL_TXT:  False
+dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/wned/msnbc
+args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/wned
+num_ner_anno 9 num_el_anno 395 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 629 num_shift_anno 0 num_change_length 0
+FLAG_EQUAL_TXT:  False
+dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/wned/wikipedia
+args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/wned
+num_ner_anno 100 num_el_anno 5216 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 8136 num_shift_anno 0 num_change_length 0
+FLAG_EQUAL_TXT:  False
+dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/aida/aida_testa
+args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/aida
+num_ner_anno 41 num_el_anno 2998 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 4754 num_shift_anno 0 num_change_length 0
+FLAG_EQUAL_TXT:  False
+dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/aida/aida_testb
+args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/aida
+num_ner_anno 43 num_el_anno 2888 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 4370 num_shift_anno 0 num_change_length 0
+FLAG_EQUAL_TXT:  False
+dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/aida/aida_train
+args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/aida
+num_ner_anno 138 num_el_anno 11861 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 18274 num_shift_anno 0 num_change_length 0
+FLAG_EQUAL_TXT:  False
+verify 30536
+remove 480
+edit 2573
