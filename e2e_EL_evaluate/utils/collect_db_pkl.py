@@ -103,7 +103,7 @@ def collect_double2anno_from_anno(ori_anno):
                     assert mention == exist_mention
                     assert entity == exist_entity
 
-                    raise ValueError('overlapped annotation!', anno, exit_annot)
+                    raise ValueError('overlapped annotation!', anno, exist_anno)
 
         double2anno[(model_enum, document_id)].append(anno)
 
@@ -213,7 +213,7 @@ def collect_double2anno_from_verified_anno_and_anno_id2anno_from_anno(verified_a
                     if start_pos != exist_start or end_pos != exist_end or mention != exist_mention or \
                             modified_entity != exist_entity:
 
-                        raise ValueError('overlapped but not equal annotation!', anno, exit_annot)
+                        print('overlapped but not equal annotation!', add_verified_anno, exist_anno)
                     find_flag = True
 
         if not find_flag:
