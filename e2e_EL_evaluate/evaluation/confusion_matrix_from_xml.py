@@ -153,7 +153,8 @@ def confusion_matrix_from_xml(
     acum_recall = 0
     num_doc_model = 0
     num_doc_GT = 0
-    total_num_anno = sum(len(value) for value in model_doc_name2anno.values())
+    total_num_model_anno = sum(len(value) for value in model_doc_name2anno.values())
+    total_num_GT_anno = sum(num_anno(value, method=method) for value in GT_doc_name2anno.values())
 
     for doc_name in doc_name2txt:
         txt = doc_name2txt[doc_name]
@@ -168,7 +169,7 @@ def confusion_matrix_from_xml(
             num_doc_model += 1
             acum_precision += tmp_TP / len(model_anno_list)
 
-        if num_anno(GT_anno_list) > 0:
+        if num_anno(GT_anno_list, method=method) > 0:
             num_doc_GT += 1
             acum_recall += tmp_TP / num_anno(GT_anno_list, method=method)
 
@@ -176,7 +177,8 @@ def confusion_matrix_from_xml(
 
     stats = {
         'TP': TP,
-        'total_num_anno': total_num_anno,
+        'total_num_model_anno': total_num_model_anno,
+        'total_num_GT_anno': total_num_GT_anno,
         'num_doc_model': num_doc_model,
         'num_doc_GT': num_doc_GT,
         'acum_precision': acum_precision,
@@ -188,14 +190,15 @@ def confusion_matrix_from_xml(
 
 def compute_metric(stats):
     TP = stats['TP']
-    total_num_anno = stats['total_num_anno']
+    total_num_GT_anno = stats['total_num_GT_anno']
+    total_num_model_anno = stats['total_num_model_anno']
     acum_precision = stats['acum_precision']
     acum_recall = stats['acum_recall']
     num_doc_model = stats['num_doc_model']
     num_doc_GT = stats['num_doc_GT']
 
-    micro_precision = TP / total_num_anno
-    micro_recall = TP / total_num_anno
+    micro_precision = TP / total_num_model_anno
+    micro_recall = TP / total_num_GT_anno
 
     if micro_precision * micro_recall > 0:
         micro_F1 = 2 * micro_precision * micro_recall / (micro_precision + micro_recall)
