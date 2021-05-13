@@ -1,4 +1,5 @@
 import os
+import copy
 import argparse
 from e2e_EL_evaluate.utils.constants import DATASET2DATASET_TYPES
 from e2e_EL_evaluate.utils.gen_anno_from_xml import gen_anno_from_xml
@@ -105,9 +106,31 @@ def weak_match_TP(txt, model_anno_list, GT_anno_list):
     return TP
 
 
-def num_anno(anno, method=''):
+def num_anno(anno_list, method=''):
     if method == '':
-        return len(anno)
+        return len(anno_list)
+    elif method == 'greedy':
+        # greedy algorithm to obtain the non-overlapped number of annotations.
+        tmp_anno_list = copy.deepcopy(anno_list)
+        tmp_anno_list = sorted(tmp_anno_list, key=lambda x:(x['start'], -x['end'], x['entity_txt']))
+
+        store_anno_list = []
+        for tmp_anno in tmp_anno_list:
+            OVERLAP_FLAG = False
+            for exist_anno in store_anno_list:
+                if tmp_anno['start'] >= exist_anno['end']:
+                    continue
+                else:
+                    OVERLAP_FLAG = True
+                    break
+            if not OVERLAP_FLAG:
+                store_anno_list.append(tmp_anno)
+
+        return len(store_anno_list)
+
+    elif method == 'ILP':
+        # integer linear programming to obtain the maximum number of covered characters.
+        raise ValueError('ILP is not supported yet!')
     else:
         raise ValueError('Unsupported method!')
 
@@ -117,6 +140,7 @@ def confusion_matrix_from_xml(
         model_doc_name2anno,
         GT_doc_name2anno,
         is_strong_match=True,
+        method='',
 ):
     for doc_name in model_doc_name2anno:
         assert doc_name in doc_name2txt
@@ -129,6 +153,7 @@ def confusion_matrix_from_xml(
     acum_recall = 0
     num_doc_model = 0
     num_doc_GT = 0
+    total_num_anno = sum(len(value) for value in model_doc_name2anno.values())
 
     for doc_name in doc_name2txt:
         txt = doc_name2txt[doc_name]
@@ -141,16 +166,36 @@ def confusion_matrix_from_xml(
 
         if tmp_TP > 0:
             num_doc_model += 1
-            acum_precision += tmp_TP / num_anno(model_anno_list)
+            acum_precision += tmp_TP / len(model_anno_list)
 
         if num_anno(GT_anno_list) > 0:
             num_doc_GT += 1
-            acum_recall += tmp_TP / num_anno(GT_anno_list)
+            acum_recall += tmp_TP / num_anno(GT_anno_list, method=method)
 
         TP += tmp_TP
 
-    micro_precision = TP / sum(num_anno(value) for value in model_doc_name2anno.values())
-    micro_recall = TP / sum(num_anno(value) for value in GT_doc_name2anno.values())
+    stats = {
+        'TP': TP,
+        'total_num_anno': total_num_anno,
+        'num_doc_model': num_doc_model,
+        'num_doc_GT': num_doc_GT,
+        'acum_precision': acum_precision,
+        'acum_recall': acum_recall,
+    }
+
+    return stats
+
+
+def compute_metric(stats):
+    TP = stats['TP']
+    total_num_anno = stats['total_num_anno']
+    acum_precision = stats['acum_precision']
+    acum_recall = stats['acum_recall']
+    num_doc_model = stats['num_doc_model']
+    num_doc_GT = stats['num_doc_GT']
+
+    micro_precision = TP / total_num_anno
+    micro_recall = TP / total_num_anno
 
     if micro_precision * micro_recall > 0:
         micro_F1 = 2 * micro_precision * micro_recall / (micro_precision + micro_recall)
@@ -172,12 +217,7 @@ def confusion_matrix_from_xml(
     else:
         macro_F1 = None
 
-    print('is_strong_match:', is_strong_match)
-    print('total documentation:', len(doc_name2txt), ' num_doc_model:', num_doc_model, ' num_doc_GT:', num_doc_GT)
-    print('micro_precision', micro_precision, 'micro_recall', micro_recall, 'micro_F1', micro_F1)
-    print('macro_precision', macro_precision, 'macro_recall', macro_recall, 'macro_F1', macro_F1)
-
-    return {
+    metric = {
         'micro_precision': micro_precision,
         'micro_recall': micro_recall,
         'micro_F1': micro_F1,
@@ -186,29 +226,49 @@ def confusion_matrix_from_xml(
         'macro_F1': macro_F1,
     }
 
+    return metric
+
 
 def main(args):
     print("compute micro/macro precision/recall/f1 from xml directory and dataset...")
-    print("model", args.model_model, "dataset", args.dataset)
-    model_xml_path = os.path.join(args.model_xml_dir, args.model_model + '/' + DATASET2DATASET_TYPES[args.dataset])
-    # model_doc_name2txt, model_doc_name2anno = gen_anno_from_xml(model_xml_path, args.dataset)
+    print("model", args.model_model, "datasets", args.datasets)
 
-    GT_xml_path = os.path.join(args.GT_xml_dir, args.GT_model + '/' + DATASET2DATASET_TYPES[args.dataset])
-    # GT_doc_name2txt, GT_doc_name2anno = gen_anno_from_xml(GT_xml_path, args.dataset)
+    total_stats = {
+        'TP': 0,
+        'total_num_anno': 0,
+        'num_doc_model': 0,
+        'num_doc_GT': 0,
+        'acum_precision': 0,
+        'acum_recall': 0,
+    }
 
-    subset_doc_name2txt, subset_doc_name2anno, full_new_doc_name2anno = extract_subset_xml(
-        subset_xml_dir=model_xml_path,
-        subset_dataset=args.dataset,
-        full_xml_dir=GT_xml_path,
-        full_dataset=args.dataset,
-    )
+    for dataset in args.datasets:
+        model_xml_path = os.path.join(args.model_xml_dir, args.model_model + '/' + DATASET2DATASET_TYPES[dataset])
+        # model_doc_name2txt, model_doc_name2anno = gen_anno_from_xml(model_xml_path, args.dataset)
 
-    confusion_matrix_from_xml(
-        subset_doc_name2txt,
-        subset_doc_name2anno,
-        full_new_doc_name2anno,
-        is_strong_match=args.is_strong_match,
-    )
+        GT_xml_path = os.path.join(args.GT_xml_dir, args.GT_model + '/' + DATASET2DATASET_TYPES[dataset])
+        # GT_doc_name2txt, GT_doc_name2anno = gen_anno_from_xml(GT_xml_path, args.dataset)
+
+        subset_doc_name2txt, subset_doc_name2anno, full_new_doc_name2anno = extract_subset_xml(
+            subset_xml_dir=model_xml_path,
+            subset_dataset=dataset,
+            full_xml_dir=GT_xml_path,
+            full_dataset=dataset,
+        )
+
+        stats = confusion_matrix_from_xml(
+            subset_doc_name2txt,
+            subset_doc_name2anno,
+            full_new_doc_name2anno,
+            is_strong_match=args.is_strong_match,
+            method=args.method,
+        )
+
+        for key, value in stats.items():
+            total_stats[key] += value
+
+    metric = compute_metric(total_stats)
+    print(metric)
 
 
 if __name__ == '__main__':
@@ -248,10 +308,9 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--dataset',
-        type=str,
-        default='aida_testa',
-        choices=['ace2004','aquaint','clueweb','msnbc','wikipedia','aida_testa','aida_testb','aida_train'],
+        '--datasets',
+        type=eval,
+        default="['ace2004','aquaint','clueweb','msnbc','wikipedia','aida_testa','aida_testb','aida_train']",
         help='datasets for EL',
     )
 
@@ -259,6 +318,14 @@ if __name__ == '__main__':
         '--is_strong_match',
         action="store_true",
         help='strong match or not (weak match)',
+    )
+
+    parser.add_argument(
+        '--method',
+        type=str,
+        default='',
+        choices=['', 'ILP', 'greedy'],
+        help='compute number of computed GT annotations',
     )
 
     args = parser.parse_args()
