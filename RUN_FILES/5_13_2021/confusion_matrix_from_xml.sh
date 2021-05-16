@@ -15,12 +15,12 @@ MODEL_XML_DIR='/scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/intersect_xml_E
 GT_XML_DIR='/scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/intersect_xml_EL'
 MODEL_MODEL='end2end_neural_el'
 GT_MODEL='GT'
-DATASET='aida_testa'
+DATASETS="['aida_testa','aida_testb']"
 
 python ${CODE}  \
     --model_xml_dir ${MODEL_XML_DIR}    \
     --GT_xml_dir    ${GT_XML_DIR} \
     --model_model   ${MODEL_MODEL}  \
     --GT_model  ${GT_MODEL} \
-    --dataset   ${DATASET}  \
+    --datasets   ${DATASETS}  \
     --is_strong_match
