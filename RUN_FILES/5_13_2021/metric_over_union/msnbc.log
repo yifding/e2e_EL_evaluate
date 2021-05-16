@@ -1,0 +1,12 @@
+num_ner_anno 0 num_el_anno 206 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 249 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 202 num_shift_anno 0 num_change_length 0
+model GT
+num_ner_anno 0 num_el_anno 211 num_shift_anno 0 num_change_length 0
+{'micro_precision': 0.9478672985781991, 'micro_recall': 0.7633587786259542, 'micro_F1': 0.8456659619450317, 'macro_precision': 0.9611360861360863, 'macro_recall': 0.7752775002775003, 'macro_F1': 0.8582600229765799}
+model rel
+num_ner_anno 0 num_el_anno 254 num_shift_anno 0 num_change_length 0
+{'micro_precision': 0.9330708661417323, 'micro_recall': 0.9045801526717557, 'micro_F1': 0.9186046511627908, 'macro_precision': 0.9479487179487179, 'macro_recall': 0.9023407148407149, 'macro_F1': 0.9245826178628225}
+model end2end_neural_el
+num_ner_anno 0 num_el_anno 209 num_shift_anno 0 num_change_length 0
+{'micro_precision': 0.9665071770334929, 'micro_recall': 0.7709923664122137, 'micro_F1': 0.8577494692144374, 'macro_precision': 0.9722222222222221, 'macro_recall': 0.8080253080253078, 'macro_F1': 0.882551608394515}
