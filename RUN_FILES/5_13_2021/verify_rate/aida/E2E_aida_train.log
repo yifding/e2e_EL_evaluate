@@ -1,0 +1,8 @@
+dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/aida/aida_train
+args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/aida
+num_ner_anno 138 num_el_anno 11861 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 18274 num_shift_anno 0 num_change_length 0
+FLAG_EQUAL_TXT:  False
+verify 10954
+remove 138
+edit 907

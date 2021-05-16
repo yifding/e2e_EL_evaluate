@@ -1,0 +1,8 @@
+dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/GT/wned/ace2004
+args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/GT/wned
+num_ner_anno 2 num_el_anno 191 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 256 num_shift_anno 0 num_change_length 0
+FLAG_EQUAL_TXT:  False
+verify 186
+remove 2
+edit 5

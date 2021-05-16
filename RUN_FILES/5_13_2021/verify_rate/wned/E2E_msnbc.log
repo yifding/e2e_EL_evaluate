@@ -1,0 +1,8 @@
+dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/wned/msnbc
+args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/wned
+num_ner_anno 9 num_el_anno 395 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 629 num_shift_anno 0 num_change_length 0
+FLAG_EQUAL_TXT:  False
+verify 366
+remove 9
+edit 29
