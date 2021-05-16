@@ -3,71 +3,39 @@ num_ner_anno 0 num_el_anno 258 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 219 num_shift_anno 0 num_change_length 0
 model GT
 num_ner_anno 0 num_el_anno 106 num_shift_anno 0 num_change_length 0
-model rel
-num_ner_anno 0 num_el_anno 262 num_shift_anno 0 num_change_length 0
-model end2end_neural_el
-num_ner_anno 0 num_el_anno 221 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 185 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 243 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 220 num_shift_anno 0 num_change_length 0
 model GT
 num_ner_anno 0 num_el_anno 189 num_shift_anno 0 num_change_length 0
-model rel
-num_ner_anno 0 num_el_anno 249 num_shift_anno 0 num_change_length 0
-model end2end_neural_el
-num_ner_anno 0 num_el_anno 224 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 3475 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 4825 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 3136 num_shift_anno 0 num_change_length 0
 model GT
 num_ner_anno 0 num_el_anno 3545 num_shift_anno 0 num_change_length 0
-model rel
-num_ner_anno 0 num_el_anno 5004 num_shift_anno 0 num_change_length 0
-model end2end_neural_el
-num_ner_anno 0 num_el_anno 3185 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 206 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 249 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 202 num_shift_anno 0 num_change_length 0
 model GT
 num_ner_anno 0 num_el_anno 211 num_shift_anno 0 num_change_length 0
-model rel
-num_ner_anno 0 num_el_anno 254 num_shift_anno 0 num_change_length 0
-model end2end_neural_el
-num_ner_anno 0 num_el_anno 209 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 1758 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 2470 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 1905 num_shift_anno 0 num_change_length 0
 model GT
 num_ner_anno 0 num_el_anno 1788 num_shift_anno 0 num_change_length 0
-model rel
-num_ner_anno 0 num_el_anno 2535 num_shift_anno 0 num_change_length 0
-model end2end_neural_el
-num_ner_anno 0 num_el_anno 1949 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 1355 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 1562 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 1367 num_shift_anno 0 num_change_length 0
 model GT
 num_ner_anno 0 num_el_anno 1377 num_shift_anno 0 num_change_length 0
-model rel
-num_ner_anno 0 num_el_anno 1585 num_shift_anno 0 num_change_length 0
-model end2end_neural_el
-num_ner_anno 0 num_el_anno 1376 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 1239 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 1378 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 1148 num_shift_anno 0 num_change_length 0
 model GT
 num_ner_anno 0 num_el_anno 1244 num_shift_anno 0 num_change_length 0
-model rel
-num_ner_anno 0 num_el_anno 1420 num_shift_anno 0 num_change_length 0
-model end2end_neural_el
-num_ner_anno 0 num_el_anno 1165 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 5127 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 5889 num_shift_anno 0 num_change_length 0
 num_ner_anno 0 num_el_anno 5023 num_shift_anno 0 num_change_length 0
 model GT
 num_ner_anno 0 num_el_anno 5189 num_shift_anno 0 num_change_length 0
-model rel
-num_ner_anno 0 num_el_anno 5980 num_shift_anno 0 num_change_length 0
-model end2end_neural_el
-num_ner_anno 0 num_el_anno 5089 num_shift_anno 0 num_change_length 0
-{'micro_precision': 0.9466137613851565, 'micro_recall': 0.7576873105240364, 'micro_F1': 0.8416790281842602, 'macro_precision': 0.9568696402649969, 'macro_recall': 0.768082162050809, 'macro_F1': 0.8521449713653652}
+{'micro_precision': 0.9465894937358048, 'micro_recall': 0.6994369857080988, 'micro_F1': 0.8044581426481118, 'macro_precision': 0.9599920760900406, 'macro_recall': 0.7123001734140854, 'macro_F1': 0.8178026567758684}

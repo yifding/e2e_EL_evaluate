@@ -4,7 +4,7 @@
 #$-M yding4@nd.edu
 #$-q gpu # specify the queue
 #$-l gpu_card=4
-#$-N CRC_ace2004
+#$-N CRC_all_E2E
 
 export PATH=/afs/crc.nd.edu/user/y/yding4/.conda/envs/e2e_EL_evaluate/bin:$PATH
 export LD_LIBRARY_PATH=/afs/crc.nd.edu/user/y/yding4/.conda/envs/e2e_EL_evaluate/lib:$LD_LIBRARY_PATH
@@ -15,7 +15,7 @@ MODEL_XML_DIR='/scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/intersect_subse
 INPUT_VERIFY_DIR='/scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/intersect_xml_EL'
 DATASETS="['ace2004','aquaint','clueweb','msnbc','wikipedia','aida_testa','aida_testb','aida_train']"
 METHOD='greedy'
-MODELS="['GT']"
+MODELS="['end2end_neural_el']"
 
 python ${CODE}  \
     --model_xml_dir  ${MODEL_XML_DIR}   \
@@ -23,7 +23,7 @@ python ${CODE}  \
     --datasets   ${DATASETS} \
     --method    ${METHOD}   \
     --models    ${MODELS}   \
-    > all.log
+    > all_E2E.log
 
 
 # --is_strong_match
