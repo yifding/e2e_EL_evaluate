@@ -18,10 +18,10 @@ def main(args):
         GT_doc_name2txt, GT_doc_name2anno = gen_anno_from_xml(GT_xml_path, dataset)
 
         stats = confusion_matrix_from_xml(
-        model_doc_name2txt,
-        model_doc_name2anno,
-        GT_doc_name2anno,
-        is_strong_match=False,
+            model_doc_name2txt,
+            model_doc_name2anno,
+            GT_doc_name2anno,
+            is_strong_match=False,
         )
 
         metrics = compute_metric(stats)
