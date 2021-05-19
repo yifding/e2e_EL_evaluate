@@ -1,0 +1,64 @@
+dataset:  aida_testa
+num_ner_anno 0 num_el_anno 1355 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1562 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1367 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1377 num_shift_anno 0 num_change_length 0
+model:  GT
+{'type_a': 1325, 'type_b': 52, 'type_c': 0, 'type_d': 0, 'type_e': 0}
+{'type_a': 1325, 'type_b': 476, 'type_c': 10, 'type_d': 9, 'type_e': 254}
+dataset:  aida_testb
+num_ner_anno 0 num_el_anno 1239 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1378 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1148 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1244 num_shift_anno 0 num_change_length 0
+model:  GT
+{'type_a': 1178, 'type_b': 66, 'type_c': 0, 'type_d': 0, 'type_e': 0}
+{'type_a': 1178, 'type_b': 431, 'type_c': 12, 'type_d': 14, 'type_e': 240}
+dataset:  aida_train
+num_ner_anno 0 num_el_anno 5127 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 5889 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 5023 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 5189 num_shift_anno 0 num_change_length 0
+model:  GT
+{'type_a': 5037, 'type_b': 151, 'type_c': 1, 'type_d': 0, 'type_e': 0}
+{'type_a': 5037, 'type_b': 1576, 'type_c': 34, 'type_d': 19, 'type_e': 778}
+dataset:  ace2004
+num_ner_anno 0 num_el_anno 104 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 258 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 219 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 106 num_shift_anno 0 num_change_length 0
+model:  GT
+{'type_a': 101, 'type_b': 3, 'type_c': 0, 'type_d': 0, 'type_e': 2}
+{'type_a': 101, 'type_b': 14, 'type_c': 6, 'type_d': 6, 'type_e': 200}
+dataset:  aquaint
+num_ner_anno 0 num_el_anno 185 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 243 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 220 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 189 num_shift_anno 0 num_change_length 0
+model:  GT
+{'type_a': 176, 'type_b': 10, 'type_c': 0, 'type_d': 0, 'type_e': 3}
+{'type_a': 176, 'type_b': 29, 'type_c': 6, 'type_d': 9, 'type_e': 172}
+dataset:  clueweb
+num_ner_anno 0 num_el_anno 3475 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 4825 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 3136 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 3545 num_shift_anno 0 num_change_length 0
+model:  GT
+{'type_a': 3280, 'type_b': 243, 'type_c': 1, 'type_d': 1, 'type_e': 20}
+{'type_a': 3280, 'type_b': 1359, 'type_c': 63, 'type_d': 81, 'type_e': 2247}
+dataset:  msnbc
+num_ner_anno 0 num_el_anno 206 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 249 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 202 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 211 num_shift_anno 0 num_change_length 0
+model:  GT
+{'type_a': 200, 'type_b': 10, 'type_c': 0, 'type_d': 0, 'type_e': 1}
+{'type_a': 200, 'type_b': 65, 'type_c': 6, 'type_d': 13, 'type_e': 60}
+dataset:  wikipedia
+num_ner_anno 0 num_el_anno 1758 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 2470 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1905 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1788 num_shift_anno 0 num_change_length 0
+model:  GT
+{'type_a': 1615, 'type_b': 149, 'type_c': 0, 'type_d': 2, 'type_e': 22}
+{'type_a': 1615, 'type_b': 541, 'type_c': 79, 'type_d': 191, 'type_e': 1476}
