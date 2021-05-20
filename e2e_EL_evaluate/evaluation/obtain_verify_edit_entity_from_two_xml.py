@@ -60,6 +60,9 @@ def main(args):
                     full_xml_dir,
                     full_dataset,
                 )
+
+                print('model: ', model, ' dataset: ', dataset)
+                print('verify: ', edit_entity.verify, ' edit: ', edit_entity.edit, ' remove: ', edit_entity.remove)
                 verify += edit_entity.verify
                 edit += edit_entity.edit
                 remove += edit_entity.remove
