@@ -60,8 +60,10 @@ def main(args):
     # dataset2doc_name2shared_anno
     # dataset2model2doc_name2verify_anno
     dataset2counter = dict()
+    dataset2coarse_counter = dict()
     for dataset in dataset2doc_name2shared_anno:
         dataset2counter[dataset] = defaultdict(int)
+        dataset2coarse_counter[dataset] = defaultdict(int)
         model2doc_name2verify_anno = dataset2model2doc_name2verify_anno[dataset]
         for doc_name in dataset2doc_name2shared_anno[dataset]:
             for shared_anno in dataset2doc_name2shared_anno[dataset][doc_name]:
@@ -86,8 +88,9 @@ def main(args):
                     if not find_flag:
                         remove += 1
                 dataset2counter[dataset][(verify, edit, remove)] += 1
-
-    print(dataset2counter)
+                dataset2coarse_counter[dataset][verify] += 1
+    #print(dataset2counter)
+    print(dataset2coarse_counter)
 
 
 def parse_args():
