@@ -133,7 +133,8 @@ class DataBaseQueryUtil:
 
     @property
     def query_valid_verified_anno(self):
-        return f"select * from verified_annotations where user_id in (select user_id from user_information where (control_passed = 1 and result_code is not NULL));"
+        # return f"select * from verified_annotations where user_id in (select user_id from user_information where (control_passed = 1 and result_code is not NULL));"
+        return f"select * from verified_annotations where user_id in (select user_id from user_information where control_passed = 1);"
 
     @property
     def query_accept_user_doc_anno(self):
