@@ -12,7 +12,7 @@ def main(args):
         dataset_type = DATASET2DATASET_TYPES[dataset]
         union_doc_name2txt = dict()
         union_doc_name2anno = dict()
-        for xml_model in XMLModel2DBModel:
+        for xml_model in args.models:
             input_dir = os.path.join(args.input_verify_dir, xml_model + '/' + dataset_type)
             doc_name2txt, doc_name2anno = gen_anno_from_xml(input_dir, dataset)
             for doc_name in doc_name2txt:
@@ -42,7 +42,9 @@ def main(args):
                 is_strong_match=args.is_strong_match,
                 method=args.method,
             )
-
+            print('dataset: ', dataset, ' model: ', xml_model)
+            tmp_metric = compute_metric(stats)
+            print(tmp_metric)
             stats_list.append(stats)
 
     total_stats = dict()
