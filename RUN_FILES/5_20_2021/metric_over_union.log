@@ -1,0 +1,121 @@
+num_ner_anno 0 num_el_anno 104 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 258 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 219 num_shift_anno 0 num_change_length 0
+model GT
+num_ner_anno 0 num_el_anno 106 num_shift_anno 0 num_change_length 0
+dataset:  ace2004  model:  GT
+{'micro_precision': 0.9622641509433962, 'micro_recall': 0.37362637362637363, 'micro_F1': 0.5382585751978892, 'macro_precision': 0.9866071428571428, 'macro_recall': 0.3884221681096682, 'macro_F1': 0.5573991513411546}
+model rel
+num_ner_anno 0 num_el_anno 262 num_shift_anno 0 num_change_length 0
+dataset:  ace2004  model:  rel
+{'micro_precision': 0.9312977099236641, 'micro_recall': 0.8937728937728938, 'micro_F1': 0.9121495327102805, 'macro_precision': 0.939360119047619, 'macro_recall': 0.9005208333333332, 'macro_F1': 0.919530533875229}
+model end2end_neural_el
+num_ner_anno 0 num_el_anno 221 num_shift_anno 0 num_change_length 0
+dataset:  ace2004  model:  end2end_neural_el
+{'micro_precision': 0.9728506787330317, 'micro_recall': 0.7875457875457875, 'micro_F1': 0.8704453441295545, 'macro_precision': 0.9737103174603176, 'macro_recall': 0.7829605579605582, 'macro_F1': 0.867979066674088}
+num_ner_anno 0 num_el_anno 185 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 243 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 220 num_shift_anno 0 num_change_length 0
+model GT
+num_ner_anno 0 num_el_anno 189 num_shift_anno 0 num_change_length 0
+dataset:  aquaint  model:  GT
+{'micro_precision': 0.9312169312169312, 'micro_recall': 0.5116279069767442, 'micro_F1': 0.6604127579737336, 'macro_precision': 0.9352703793381759, 'macro_recall': 0.5332974464330399, 'macro_F1': 0.6792703697748216}
+model rel
+num_ner_anno 0 num_el_anno 249 num_shift_anno 0 num_change_length 0
+dataset:  aquaint  model:  rel
+{'micro_precision': 0.9196787148594378, 'micro_recall': 0.6656976744186046, 'micro_F1': 0.772344013490725, 'macro_precision': 0.9466674130467234, 'macro_recall': 0.6421940112618079, 'macro_F1': 0.7652576039850547}
+model end2end_neural_el
+num_ner_anno 0 num_el_anno 224 num_shift_anno 0 num_change_length 0
+dataset:  aquaint  model:  end2end_neural_el
+{'micro_precision': 0.9508928571428571, 'micro_recall': 0.6191860465116279, 'micro_F1': 0.7499999999999999, 'macro_precision': 0.9730297967140071, 'macro_recall': 0.5840400183620523, 'macro_F1': 0.7299458699119579}
+num_ner_anno 0 num_el_anno 3475 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 4825 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 3136 num_shift_anno 0 num_change_length 0
+model GT
+num_ner_anno 0 num_el_anno 3545 num_shift_anno 0 num_change_length 0
+dataset:  clueweb  model:  GT
+{'micro_precision': 0.9258110014104373, 'micro_recall': 0.5867000357525921, 'micro_F1': 0.718240507714192, 'macro_precision': 0.9565656104484999, 'macro_recall': 0.6521988129879791, 'macro_F1': 0.775590194053376}
+model rel
+num_ner_anno 0 num_el_anno 5004 num_shift_anno 0 num_change_length 0
+dataset:  clueweb  model:  rel
+{'micro_precision': 0.9036770583533174, 'micro_recall': 0.8083661065427243, 'micro_F1': 0.8533685601056803, 'macro_precision': 0.9222103569914843, 'macro_recall': 0.8263366640596694, 'macro_F1': 0.8716451096631116}
+model end2end_neural_el
+num_ner_anno 0 num_el_anno 3185 num_shift_anno 0 num_change_length 0
+dataset:  clueweb  model:  end2end_neural_el
+{'micro_precision': 0.963265306122449, 'micro_recall': 0.5484447622452627, 'micro_F1': 0.6989406538330105, 'macro_precision': 0.9791419306600784, 'macro_recall': 0.6148518993343867, 'macro_F1': 0.755369643791379}
+num_ner_anno 0 num_el_anno 206 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 249 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 202 num_shift_anno 0 num_change_length 0
+model GT
+num_ner_anno 0 num_el_anno 211 num_shift_anno 0 num_change_length 0
+dataset:  msnbc  model:  GT
+{'micro_precision': 0.9478672985781991, 'micro_recall': 0.7633587786259542, 'micro_F1': 0.8456659619450317, 'macro_precision': 0.9611360861360863, 'macro_recall': 0.7752775002775003, 'macro_F1': 0.8582600229765799}
+model rel
+num_ner_anno 0 num_el_anno 254 num_shift_anno 0 num_change_length 0
+dataset:  msnbc  model:  rel
+{'micro_precision': 0.9330708661417323, 'micro_recall': 0.9045801526717557, 'micro_F1': 0.9186046511627908, 'macro_precision': 0.9479487179487179, 'macro_recall': 0.9023407148407149, 'macro_F1': 0.9245826178628225}
+model end2end_neural_el
+num_ner_anno 0 num_el_anno 209 num_shift_anno 0 num_change_length 0
+dataset:  msnbc  model:  end2end_neural_el
+{'micro_precision': 0.9665071770334929, 'micro_recall': 0.7709923664122137, 'micro_F1': 0.8577494692144374, 'macro_precision': 0.9722222222222221, 'macro_recall': 0.8080253080253078, 'macro_F1': 0.882551608394515}
+num_ner_anno 0 num_el_anno 1758 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 2470 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1905 num_shift_anno 0 num_change_length 0
+model GT
+num_ner_anno 0 num_el_anno 1788 num_shift_anno 0 num_change_length 0
+dataset:  wikipedia  model:  GT
+{'micro_precision': 0.9049217002237137, 'micro_recall': 0.5402337228714524, 'micro_F1': 0.6765628266778173, 'macro_precision': 0.931209199376868, 'macro_recall': 0.5347591936558941, 'macro_F1': 0.6793771038317273}
+model rel
+num_ner_anno 0 num_el_anno 2535 num_shift_anno 0 num_change_length 0
+dataset:  wikipedia  model:  rel
+{'micro_precision': 0.9001972386587771, 'micro_recall': 0.7619365609348915, 'micro_F1': 0.8253164556962026, 'macro_precision': 0.9050266757903991, 'macro_recall': 0.7713339544018176, 'macro_F1': 0.8328491997530346}
+model end2end_neural_el
+num_ner_anno 0 num_el_anno 1949 num_shift_anno 0 num_change_length 0
+dataset:  wikipedia  model:  end2end_neural_el
+{'micro_precision': 0.9502308876346844, 'micro_recall': 0.6183639398998331, 'micro_F1': 0.749190938511327, 'macro_precision': 0.9551254833628938, 'macro_recall': 0.628670750749717, 'macro_F1': 0.7582534189094972}
+num_ner_anno 0 num_el_anno 1355 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1562 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1367 num_shift_anno 0 num_change_length 0
+model GT
+num_ner_anno 0 num_el_anno 1377 num_shift_anno 0 num_change_length 0
+dataset:  aida_testa  model:  GT
+{'micro_precision': 0.9629629629629629, 'micro_recall': 0.8266832917705735, 'micro_F1': 0.8896343508889635, 'macro_precision': 0.9645827421176508, 'macro_recall': 0.8252597938591805, 'macro_F1': 0.8894987563648334}
+model rel
+num_ner_anno 0 num_el_anno 1585 num_shift_anno 0 num_change_length 0
+dataset:  aida_testa  model:  rel
+{'micro_precision': 0.9514195583596214, 'micro_recall': 0.940149625935162, 'micro_F1': 0.9457510191282533, 'macro_precision': 0.9499679078564842, 'macro_recall': 0.937250653034756, 'macro_F1': 0.9435664320512813}
+model end2end_neural_el
+num_ner_anno 0 num_el_anno 1376 num_shift_anno 0 num_change_length 0
+dataset:  aida_testa  model:  end2end_neural_el
+{'micro_precision': 0.9752906976744186, 'micro_recall': 0.8366583541147132, 'micro_F1': 0.9006711409395973, 'macro_precision': 0.9720512794175433, 'macro_recall': 0.8362579266594553, 'macro_F1': 0.8990559632175789}
+num_ner_anno 0 num_el_anno 1239 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1378 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 1148 num_shift_anno 0 num_change_length 0
+model GT
+num_ner_anno 0 num_el_anno 1244 num_shift_anno 0 num_change_length 0
+dataset:  aida_testb  model:  GT
+{'micro_precision': 0.9469453376205788, 'micro_recall': 0.8107364074328974, 'micro_F1': 0.8735632183908046, 'macro_precision': 0.9565567551386561, 'macro_recall': 0.7947620264242192, 'macro_F1': 0.868185727358375}
+model rel
+num_ner_anno 0 num_el_anno 1420 num_shift_anno 0 num_change_length 0
+dataset:  aida_testb  model:  rel
+{'micro_precision': 0.9471830985915493, 'micro_recall': 0.925671025464556, 'micro_F1': 0.9363035154890359, 'macro_precision': 0.9490168822602714, 'macro_recall': 0.9266149595143119, 'macro_F1': 0.9376821403309109}
+model end2end_neural_el
+num_ner_anno 0 num_el_anno 1165 num_shift_anno 0 num_change_length 0
+dataset:  aida_testb  model:  end2end_neural_el
+{'micro_precision': 0.9802575107296138, 'micro_recall': 0.7859600825877495, 'micro_F1': 0.8724216959511077, 'macro_precision': 0.978991586904431, 'macro_recall': 0.8164338924293889, 'macro_F1': 0.8903537586517675}
+num_ner_anno 0 num_el_anno 5127 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 5889 num_shift_anno 0 num_change_length 0
+num_ner_anno 0 num_el_anno 5023 num_shift_anno 0 num_change_length 0
+model GT
+num_ner_anno 0 num_el_anno 5189 num_shift_anno 0 num_change_length 0
+dataset:  aida_train  model:  GT
+{'micro_precision': 0.9708999807284641, 'micro_recall': 0.8471498234403901, 'micro_F1': 0.9048132183908046, 'macro_precision': 0.9758594662213061, 'macro_recall': 0.8364966165380683, 'macro_F1': 0.9008198217514942}
+model rel
+num_ner_anno 0 num_el_anno 5980 num_shift_anno 0 num_change_length 0
+dataset:  aida_train  model:  rel
+{'micro_precision': 0.946989966555184, 'micro_recall': 0.9522448293257104, 'micro_F1': 0.9496101282803723, 'macro_precision': 0.9493893492033616, 'macro_recall': 0.9514527453200416, 'macro_F1': 0.9504199273360785}
+model end2end_neural_el
+num_ner_anno 0 num_el_anno 5089 num_shift_anno 0 num_change_length 0
+dataset:  aida_train  model:  end2end_neural_el
+{'micro_precision': 0.983297307919041, 'micro_recall': 0.8414326551202287, 'micro_F1': 0.9068503080826386, 'macro_precision': 0.986149546502009, 'macro_recall': 0.8353815617397196, 'macro_F1': 0.9045260270750639}
+{'micro_precision': 0.9466137613851565, 'micro_recall': 0.7576873105240364, 'micro_F1': 0.8416790281842602, 'macro_precision': 0.9568696402649969, 'macro_recall': 0.768082162050809, 'macro_F1': 0.8521449713653652}
