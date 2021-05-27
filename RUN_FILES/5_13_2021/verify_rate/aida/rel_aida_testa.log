@@ -1,8 +1,0 @@
-dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/rel/aida/aida_testa
-args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/rel/aida
-num_ner_anno 51 num_el_anno 3666 num_shift_anno 0 num_change_length 0
-num_ner_anno 0 num_el_anno 5439 num_shift_anno 0 num_change_length 0
-FLAG_EQUAL_TXT:  False
-verify 3324
-remove 51
-edit 342

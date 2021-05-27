@@ -1,8 +1,0 @@
-dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/rel/wned/clueweb
-args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/rel/wned
-num_ner_anno 580 num_el_anno 14751 num_shift_anno 0 num_change_length 0
-num_ner_anno 0 num_el_anno 23056 num_shift_anno 0 num_change_length 0
-FLAG_EQUAL_TXT:  False
-verify 13171
-remove 580
-edit 1580

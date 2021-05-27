@@ -1,8 +1,0 @@
-dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/aida/aida_testb
-args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/end2end_neural_el/aida
-num_ner_anno 43 num_el_anno 2888 num_shift_anno 0 num_change_length 0
-num_ner_anno 0 num_el_anno 4370 num_shift_anno 0 num_change_length 0
-FLAG_EQUAL_TXT:  False
-verify 2681
-remove 43
-edit 207

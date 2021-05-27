@@ -1,8 +1,0 @@
-dataset_path /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/GT/aida/aida_train
-args.subset_xml_dir /scratch365/yding4/e2e_EL_evaluate/data/5_13_2021/label_xml_EL/GT/aida
-num_ner_anno 154 num_el_anno 11684 num_shift_anno 0 num_change_length 0
-num_ner_anno 0 num_el_anno 18511 num_shift_anno 0 num_change_length 0
-FLAG_EQUAL_TXT:  False
-verify 10676
-remove 154
-edit 1008
