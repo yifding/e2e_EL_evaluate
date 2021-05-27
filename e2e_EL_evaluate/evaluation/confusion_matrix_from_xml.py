@@ -220,9 +220,38 @@ def compute_metric(stats):
     else:
         macro_F1 = None
 
+    # add error bar for micro_precision and micro_recall.
+    num_sample = 1000
+    import random
+    micro_precision_list = []
+    micro_recall_list = []
+    micro_precision_sample = [1] * TP + [0] * (total_num_model_anno - TP)
+    micro_recall_sample = [1] * TP + [0] * (total_num_GT_anno - TP)
+
+    for _ in range(num_sample):
+        tmp_micro_precision = sum(random.choices(micro_precision_sample, k=len(micro_precision_sample))) / total_num_model_anno
+        tmp_micro_recall = sum(random.choices(micro_recall_sample, k=len(micro_recall_sample))) / total_num_GT_anno
+        micro_precision_list.append(tmp_micro_precision)
+        micro_recall_list.append(tmp_micro_recall)
+
+    micro_precision_list.sort()
+    micro_recall_list.sort()
+    micro_precision_low = micro_precision_list[int(num_sample * 0.05)]
+    micro_precision_high = micro_precision_list[int(num_sample * 0.95)]
+
+    micro_recall_low = micro_recall_list[int(num_sample * 0.05)]
+    micro_recall_high = micro_recall_list[int(num_sample * 0.95)]
+
+
     metric = {
         'micro_precision': micro_precision,
         'micro_recall': micro_recall,
+        'micro_precision_low': micro_precision_low,
+        'micro_precision_high': micro_precision_high,
+        'micro_recall_low': micro_recall_low,
+        'micro_recall_high': micro_recall_high,
+
+
         'micro_F1': micro_F1,
         'macro_precision': macro_precision,
         'macro_recall': macro_recall,

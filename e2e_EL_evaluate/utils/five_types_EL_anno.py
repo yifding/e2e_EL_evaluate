@@ -23,6 +23,9 @@ def five_types_EL_anno(model_doc_name2anno, template_doc_name2anno):
                         if entity_txt == tmp_entity_txt:
                             find_a = True
                         else:
+                            print('doc_name: ', doc_name)
+                            print('anno: ', anno)
+                            print('tmp_anno: ', template_anno)
                             find_b = True
 
                     elif start <= tmp_start < end or tmp_start <= start < tmp_end:
