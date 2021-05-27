@@ -1,0 +1,20 @@
+dataset:  ace2004
+num_ner_anno 0 num_el_anno 257 num_shift_anno 0 num_change_length 0
+num_of_docs_from_txt:  57
+num_of_docs_from_anno:  35
+dataset:  aquaint
+num_ner_anno 0 num_el_anno 727 num_shift_anno 0 num_change_length 0
+num_of_docs_from_txt:  50
+num_of_docs_from_anno:  50
+dataset:  clueweb
+num_ner_anno 0 num_el_anno 11154 num_shift_anno 0 num_change_length 0
+num_of_docs_from_txt:  320
+num_of_docs_from_anno:  320
+dataset:  msnbc
+num_ner_anno 0 num_el_anno 656 num_shift_anno 0 num_change_length 0
+num_of_docs_from_txt:  20
+num_of_docs_from_anno:  20
+dataset:  wikipedia
+num_ner_anno 0 num_el_anno 6793 num_shift_anno 0 num_change_length 0
+num_of_docs_from_txt:  345
+num_of_docs_from_anno:  319
