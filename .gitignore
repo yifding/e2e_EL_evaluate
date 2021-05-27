@@ -39,6 +39,9 @@ data/
 # run_files
 RUN_FILES
 
+# running script
+*.sh
+
 # deep_ed_PyTorch run_files
 baseline/deep_ed_PyTorch/run_files
 
