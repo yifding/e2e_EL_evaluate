@@ -19,4 +19,4 @@ python ${CODE}  \
     --input_verify_dir  ${INPUT_VERIFY_DIR} \
     --model_xml_dir ${MODEL_XML_DIR}    \
     --models    ${MODELS}   \
-    > GT_over_union.log
+    > NEW_GT_over_union.log

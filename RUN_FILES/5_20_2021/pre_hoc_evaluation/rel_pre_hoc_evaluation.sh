@@ -22,4 +22,4 @@ python ${CODE}  \
     --GT_xml_dir        ${GT_XML_DIR}   \
     --model_model       ${MODEL_MODEL}  \
     --GT_model      ${GT_MODEL} \
-    > rel_pre_hoc_evaluation.log
+    > error_rel_pre_hoc_evaluation.log

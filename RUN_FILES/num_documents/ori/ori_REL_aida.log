@@ -1,0 +1,12 @@
+dataset:  aida_testa
+num_ner_anno 0 num_el_anno 5443 num_shift_anno 0 num_change_length 0
+num_of_docs_from_txt:  216
+num_of_docs_from_anno:  216
+dataset:  aida_testb
+num_ner_anno 0 num_el_anno 5086 num_shift_anno 0 num_change_length 0
+num_of_docs_from_txt:  231
+num_of_docs_from_anno:  230
+dataset:  aida_train
+num_ner_anno 0 num_el_anno 21204 num_shift_anno 0 num_change_length 0
+num_of_docs_from_txt:  946
+num_of_docs_from_anno:  946

@@ -23,7 +23,7 @@ python ${CODE}  \
     --datasets   ${DATASETS} \
     --models    ${MODELS}   \
     --method    ${METHOD}   \
-    > metric_over_union.log
+    > error_metric_over_union.log
 
 
 # --is_strong_match
