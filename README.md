@@ -1,10 +1,9 @@
 # e2e_EL_evaluate
 This is the paper:
 
->Yifan Ding, Nicholas Botzer, Tim Weninger. 
-Prehoc and Posthoc Differences in Text Labels.
+**Posthoc Verification and the Fallibility of the GroundTruth**
 
->To be written and submitted to NeurIPS2021
+>submitted to NeurIPS2021
 
 The repository provides a complete(mostly) pipeline for preparing and analysis data.
 
