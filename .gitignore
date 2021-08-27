@@ -40,7 +40,7 @@ data/
 # RUN_FILES
 
 # running script
-*.sh
+# *.sh
 *.json
 *.log
 
