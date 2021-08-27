@@ -37,10 +37,12 @@ wheels/
 data/
 
 # run_files
-RUN_FILES
+# RUN_FILES
 
 # running script
 *.sh
+*.json
+*.log
 
 # deep_ed_PyTorch run_files
 baseline/deep_ed_PyTorch/run_files
