@@ -8,6 +8,7 @@ def gen_anno_from_xml(
         allow_mention_shift=False,
         allow_mention_without_entity=False,
         allow_repeat_annotation=False,
+        has_prob=False,    # **YD-CL** whether ED probability exist in the xml
 ):
 
     """
@@ -41,6 +42,9 @@ def gen_anno_from_xml(
     :param allow_repeat_annotation: allow repeated annotation.
     If the flag is set to True: repeated annotation will not be considered as outputs
     If the flag is set to False: raise ERROR if a repeat annotation is found.
+
+    :param has_prob
+    If the flag is set to True: load ED probability
 
     :return:
     doc_name2txt, doc_name2anno:
@@ -141,11 +145,18 @@ def gen_anno_from_xml(
                     print('mention', cur_mention, 'offset', offset, 'length', length, 'length_record', length_record)
                     num_change_length += 1
 
+                if has_prob:    # **YD-CL** whether ED probability exist in the xml.
+                    assert '<prob>' in line and '</prob>' in line
+                    prob_start = line.find('<prob>') + len('<prob>')
+                    prob_end = line.find('</prob>')
+                    prob = float(line[prob_start: prob_end])
+
                 line = reader.readline()
                 if '<entity/>' in line:
                     line = reader.readline()
 
-                assert '</annotation>' in line
+                if not has_prob:    # **YD-CL** allow 'prob' in the xml, but not loading it
+                    assert '</annotation>' in line
 
                 # if cur_ent_title != 'NIL' and cur_ent_title != '':
                 assert cur_doc_name != ''
@@ -155,6 +166,8 @@ def gen_anno_from_xml(
                         'mention_txt': cur_mention,
                         'entity_txt': cur_ent_title,
                     }
+                if has_prob:    # **YD-CL** whether ED probability exist in the xml.
+                    ele['prob'] = prob
 
                 doc_txt = doc_name2txt[cur_doc_name]
                 pos_mention = doc_txt[offset: offset + length]

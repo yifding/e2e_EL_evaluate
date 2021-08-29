@@ -226,7 +226,7 @@ def main(args):
 
     for dataset in args.datasets:
         print('dataset', dataset)
-        doc_name2txt, doc_name2anno = gen_anno_from_xml(args.input_dir, dataset)
+        doc_name2txt, doc_name2anno = gen_anno_from_xml(args.input_dir, dataset, has_prob=args.has_prob)
         doc_name2txt_sent_splits = dict()
 
         for doc_name in doc_name2anno:
@@ -276,8 +276,8 @@ def main(args):
             with open(txt_file, 'w') as writer:
                 writer.write(doc_name2revised_txt[doc_name])
 
-        write_annotation(dataset, xml_file, doc_name2revised_anno)
-        write_annotation(dataset, remove_xml_file, doc_name2removed_anno)
+        write_annotation(dataset, xml_file, doc_name2revised_anno, has_prob=args.has_prob)
+        write_annotation(dataset, remove_xml_file, doc_name2removed_anno, has_prob=args.has_prob)
 
 
 if __name__ == "__main__":
@@ -315,6 +315,10 @@ if __name__ == "__main__":
         "--min_num_char",
         default=100,
         type=int,
+    )
+    parser.add_argument(
+        "--has_prob",
+        action="store_true",
     )
 
     args = parser.parse_args()

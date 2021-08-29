@@ -1,7 +1,7 @@
 import os
 
 
-def write_xml(prefix, dataset, doc_name2txt, doc_name2anno):
+def write_xml(prefix, dataset, doc_name2txt, doc_name2anno, has_prob=False):
     """
     this function writes a standard xml EL annotation with its documents
 
@@ -17,6 +17,7 @@ def write_xml(prefix, dataset, doc_name2txt, doc_name2anno):
     :param dataset: name of a dataset
     :param doc_name2txt: a dictionary of string. Each doc_name corresponds to a documentation of a dataset.
     :param doc_name2anno: a dictionary of list. Each doc_name corresponds to a documentation of a dataset.
+    :param has_prob: whether write 'prob'.
 
     each element(ele) in the list is a dictionary formed with four elements:
     ele = {
@@ -32,11 +33,11 @@ def write_xml(prefix, dataset, doc_name2txt, doc_name2anno):
     os.makedirs(dataset_prefix, exist_ok=True)
 
     xml_file = os.path.join(prefix, dataset + '/' + dataset + '.xml')
-    write_annotation(dataset, xml_file, doc_name2anno)
+    write_annotation(dataset, xml_file, doc_name2anno, has_prob=has_prob)
     write_txt(prefix, dataset, doc_name2txt)
 
 
-def write_annotation(dataset, xml_file, doc_name2anno):
+def write_annotation(dataset, xml_file, doc_name2anno, has_prob=False):
     print('ready to write:', 'dataset', dataset, 'path', xml_file)
     with open(xml_file, 'w') as writer:
         writer.write('<?xml version="1.0" encoding="UTF-8" standalone="no"?>' + '\n')
@@ -64,6 +65,9 @@ def write_annotation(dataset, xml_file, doc_name2anno):
                 writer.write('\t\t\t' + '<wikiName>' + entity_txt + '</wikiName>' + '\n')
                 writer.write('\t\t\t' + '<offset>' + str(start) + '</offset>' + '\n')
                 writer.write('\t\t\t' + '<length>' + str(end - start) + '</length>' + '\n')
+                if has_prob:    # **YD-CL** whether write ED probability.
+                    prob = anno['prob']
+                    writer.write('\t\t\t' + '<prob>' + str(prob) + '</prob>' + '\n')
 
                 writer.write('\t\t' + '</annotation>' + '\n')
 

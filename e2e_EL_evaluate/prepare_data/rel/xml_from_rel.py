@@ -11,11 +11,12 @@ from e2e_EL_evaluate.utils.check_xml_anno import check_xml_anno
 from e2e_EL_evaluate.utils.gen_anno_from_xml import gen_anno_from_xml
 
 
-def process_anno(ori_anno_list, txt):
+def process_anno(ori_anno_list, txt, has_prob=False):
     """
     :param ori_anno_list: like: [[0, 5, 'Obama', 'Barack_Obama', 0.0, 0.9997133612632751, 'PER'],
     [17, 7, 'Germany', 'Germany', 0.0, 0.9999783039093018, 'LOC']]
     :param txt:
+    :param has_prob: # **YD-CL** whether extract ED probability.
     :return: standard anno_list for e2e_EL_evaluate.
     """
     anno_list = list()
@@ -34,6 +35,8 @@ def process_anno(ori_anno_list, txt):
             'mention_txt': mention_txt,
             'entity_txt': entity_txt,
         }
+        if has_prob:
+            ele['prob'] = anno[4]   # the ED probability is at index 4
         anno_list.append(ele)
 
     anno_list = sorted(anno_list, key=lambda x: (x['start'],x['end']))
@@ -51,11 +54,11 @@ def main(args):
             txt = doc_name2txt[doc_name]
             myjson = { "text": txt, "spans": []}
             ori_anno_list = eval(requests.post(args.URL, json=myjson).content.decode("utf-8"))
-            anno_list = process_anno(ori_anno_list, txt)
+            anno_list = process_anno(ori_anno_list, txt, has_prob=args.has_prob)
             new_doc_name2anno[doc_name] = anno_list
 
         check_xml_anno(doc_name2txt, new_doc_name2anno)
-        write_xml(args.output_dir, dataset, doc_name2txt, new_doc_name2anno)
+        write_xml(args.output_dir, dataset, doc_name2txt, new_doc_name2anno, has_prob=args.has_prob)
 
 
 if __name__ == '__main__':
@@ -82,6 +85,10 @@ if __name__ == '__main__':
         "--URL",
         default="http://127.0.0.1:1235",
         type=str,
+    )
+    parser.add_argument(
+        "--has_prob",
+        action="store_true",
     )
 
     args = parser.parse_args()
