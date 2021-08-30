@@ -4,8 +4,8 @@ import numpy as np
 
 from cleanlab.pruning import get_noise_indices
 
-input_dir = "/scratch365/yding4/e2e_EL_evaluate/data/has_prob/cleanlab_input"
-output_dir = "/scratch365/yding4/e2e_EL_evaluate/data/has_prob/cleanlab_output"
+input_dir = "/scratch365/yding4/e2e_EL_evaluate/data/has_prob/cleanlab_input/rel"
+output_dir = "/scratch365/yding4/e2e_EL_evaluate/data/has_prob/cleanlab_output/rel"
 assert input_dir != output_dir
 os.makedirs(output_dir, exist_ok=True)
 datasets = "['aida_testa','aida_testb','aida_train','ace2004','aquaint','clueweb','msnbc','wikipedia']"

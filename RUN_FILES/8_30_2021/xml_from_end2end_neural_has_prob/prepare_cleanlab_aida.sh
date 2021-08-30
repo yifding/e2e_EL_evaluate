@@ -15,7 +15,7 @@ CODE=/scratch365/yding4/e2e_EL_evaluate/e2e_EL_evaluate/prepare_data/cleanlab/pr
 INTERSECT_XML_EL_DIR=/scratch365/yding4/e2e_EL_evaluate/data/5_20_2021/intersect_xml_EL/end2end_neural_el/aida
 INTERSECT_SUBSET_XML_EL_DIR=/scratch365/yding4/e2e_EL_evaluate/data/5_20_2021/intersect_subset_xml_EL/end2end_neural_el/aida
 ORI_XML_EL_WITH_PROB_DIR=/scratch365/yding4/e2e_EL_evaluate/data/has_prob/prepare_split/end2end_neural
-OUTPUT_DIR=/scratch365/yding4/e2e_EL_evaluate/data/has_prob/cleanlab_input
+OUTPUT_DIR=/scratch365/yding4/e2e_EL_evaluate/data/has_prob/cleanlab_input/end2end_neural
 DATASETS="['aida_testa','aida_testb','aida_train']"
 
 python ${CODE}  \
