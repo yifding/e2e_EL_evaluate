@@ -146,6 +146,7 @@ def gen_anno_from_xml(
                     num_change_length += 1
 
                 if has_prob:    # **YD-CL** whether ED probability exist in the xml.
+                    line = reader.readline()
                     assert '<prob>' in line and '</prob>' in line
                     prob_start = line.find('<prob>') + len('<prob>')
                     prob_end = line.find('</prob>')
