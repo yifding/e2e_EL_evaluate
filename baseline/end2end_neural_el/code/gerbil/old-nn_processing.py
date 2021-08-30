@@ -298,7 +298,7 @@ class NNProcessing(object):
         wikiname = self.wiki_id_name_map[wikiid].replace(' ', '_')
         if not self.args.el_mode:   # try to match it with a given span
             start, end = self.nearest_given_span(start, end)
-        response.append((start, end-start, wikiname, float(score)))
+        response.append((start, end-start, wikiname))
 
     def nearest_given_span(self, begin_idx, end_idx):    # [begin_idx, end_idx)  end_idx points to the next character after mention
         min_distance = 1e+6
