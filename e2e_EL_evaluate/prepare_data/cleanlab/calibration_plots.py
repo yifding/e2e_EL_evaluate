@@ -15,7 +15,7 @@ def main(args):
     output_dir = args.output_dir
     output_file = os.path.join(args.output_dir, args.output_file)
     datasets = args.datasets
-    num_bin = 10
+    num_bin = args.num_bin
 
     s = ""
     for dataset in datasets:
@@ -26,6 +26,8 @@ def main(args):
             dic = json.load(reader)
 
         sorted_dic = sorted(dic.items(), key=lambda x: x[1]["prob"])
+        num_correct = sum(1 for ele in sorted_dic if ele[1]["correctness"])
+
         # print(sorted_dic[:5])
         # break
         # 1. compute the total number of positive samples
@@ -39,7 +41,7 @@ def main(args):
 
         for index, split in enumerate(splits):
             avg_prob = sum(ins[1]["prob"] for ins in split) / len(split)
-            cur_frac += sum(1 for ins in split if ins[1]["correctness"]) / len(sorted_dic)
+            cur_frac += sum(1 for ins in split if ins[1]["correctness"]) / num_correct
             avg_prob_list.append(avg_prob)
             accum_pos_fraction_list.append(cur_frac)
 
@@ -80,6 +82,11 @@ def parse_args():
         required=True,
         # default="['aida_testa','aida_testb','aida_train','ace2004','aquaint','clueweb','msnbc','wikipedia']",
         type=eval,
+    )
+    parser.add_argument(
+        "--num_bin",
+        default=10,
+        type=int,
     )
     args = parser.parse_args()
 

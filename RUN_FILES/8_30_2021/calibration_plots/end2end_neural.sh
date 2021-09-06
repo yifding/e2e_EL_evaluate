@@ -14,9 +14,11 @@ INPUT_DIR=/scratch365/yding4/e2e_EL_evaluate/data/has_prob/cleanlab_input/end2en
 OUTPUT_DIR=/scratch365/yding4/e2e_EL_evaluate/data/has_prob/calibration_plots/end2end_neural
 OUTPUT_FILE=end2end_neural.csv
 DATASETS="['aida_testa','aida_testb','aida_train','ace2004','aquaint','clueweb','msnbc','wikipedia']"
+NUM_BIN=100
 
 python ${CODE}  \
   --input_dir ${INPUT_DIR}    \
   --output_dir ${OUTPUT_DIR}  \
   --output_file ${OUTPUT_FILE}    \
-  --datasets ${DATASETS}
+  --datasets ${DATASETS}    \
+  --num_bin ${NUM_BIN}
