@@ -50,8 +50,8 @@ def main(args):
 
         # print(f"dataset: {dataset}, avg_prob_list: {avg_prob_list}, accum_pos_fraction_list: {accum_pos_fraction_list}")
 
-        s += dataset + ',' + "avg_prob_list" + ',' + ','.join(avg_prob_list) + '\n'
-        s += dataset + ',' + "accum_pos_fraction_list" + ',' + ','.join(accum_pos_fraction_list) + '\n'
+        s += dataset + '-' + "avg_prob_list" + ',' + ','.join(avg_prob_list) + '\n'
+        s += dataset + '-' + "accum_pos_fraction_list" + ',' + ','.join(accum_pos_fraction_list) + '\n'
 
     with open(output_file, 'w') as writer:
         writer.write(s)
