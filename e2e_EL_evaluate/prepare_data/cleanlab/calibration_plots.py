@@ -41,7 +41,9 @@ def main(args):
 
         for index, split in enumerate(splits):
             avg_prob = sum(ins[1]["prob"] for ins in split) / len(split)
-            cur_frac += sum(1 for ins in split if ins[1]["correctness"]) / num_correct
+            # cur_frac += sum(1 for ins in split if ins[1]["correctness"]) / num_correct
+            # **YD** cur_fra should be the positive rates within the bin
+            cur_frac = sum(1 for ins in split if ins[1]["correctness"]) / len(split)
             avg_prob_list.append(avg_prob)
             accum_pos_fraction_list.append(cur_frac)
 
