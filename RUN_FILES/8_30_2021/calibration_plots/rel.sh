@@ -14,7 +14,7 @@ INPUT_DIR=/scratch365/yding4/e2e_EL_evaluate/data/has_prob/cleanlab_input/rel
 OUTPUT_DIR=/scratch365/yding4/e2e_EL_evaluate/data/has_prob/calibration_plots/rel
 OUTPUT_FILE=rel.csv
 DATASETS="['aida_testa','aida_testb','aida_train','ace2004','aquaint','clueweb','msnbc','wikipedia']"
-NUM_BIN=100
+NUM_BIN=10
 
 python ${CODE}  \
   --input_dir ${INPUT_DIR}    \
